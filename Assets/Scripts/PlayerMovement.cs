@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive) return; 
+        if (!isAlive) return;
         Walk();
         FlipSprite();
         Jump();
@@ -56,11 +56,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (value.isPressed && isTouchingGround)
         {
-            rb2d.linearVelocity += new Vector2(0f, jumpSpeed);
-            isJumping = true;
-            //Invoke(nameof(OnJumpDelay), 0.2f);
+            rb2d.linearVelocity = new Vector2(rb2d.linearVelocity.x, jumpSpeed);
         }
     }
+
     void OnJumpDelay()
     {
         isJumping = true;
@@ -69,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     // on collision
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        if (boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy")))
         {
             enemyMovement.Hit(damageAmount);
         }
@@ -114,10 +113,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // set isJumping at the start of the jump and end when it touches the ground again
         isTouchingGround = boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Bouncy", "Enemy"));
-        if (isJumping && isTouchingGround)
-        {
-            isJumping = false;
-        }
+
+        isJumping = !isTouchingGround;
+
         animator.SetBool("isJumping", isJumping);
     }
 
