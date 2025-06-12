@@ -14,8 +14,8 @@ TagManager:
   - Ground
   - Background
   - Player
-  - 
-  - 
+  - Enemy
+  - Hazards
   - 
   - 
   - 
@@ -58,6 +58,9 @@ TagManager:
     locked: 0
   - name: Bouncy
     uniqueID: 627264549
+    locked: 0
+  - name: Hazards
+    uniqueID: 4022505355
     locked: 0
   m_RenderingLayers:
   - Default
