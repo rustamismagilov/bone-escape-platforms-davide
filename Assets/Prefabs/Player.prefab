@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6654436212445346755}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 4293021817585455870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5, y: -1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,7 +150,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.03}
-  m_Size: {x: 0.8, y: 1.05}
+  m_Size: {x: 0.8, y: 0.85}
   m_Direction: 0
 --- !u!50 &7126995365004186926
 Rigidbody2D:
@@ -223,6 +223,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpSpeed: 10
+  jumpEffectDelay: 0
+  walkSpeed: 10
+  sprintSpeed: 50
+  deathKick: {x: 10, y: 10}
+  damageAmount: 40
 --- !u!61 &6654436212445346755
 BoxCollider2D:
   m_ObjectHideFlags: 0

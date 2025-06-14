@@ -14,7 +14,14 @@ public class DebugTools : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex);
+        }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            FindFirstObjectByType<ScenePersist>().ResetScenePersist();
+            SceneManager.LoadScene(0);
+            Destroy(FindFirstObjectByType<GameSessionController>());
         }
     }
 }

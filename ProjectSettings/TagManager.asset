@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - LivesTextbox
+  - CoinsTextbox
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Player
   - Enemy
   - Hazards
-  - 
+  - Interactables
   - 
   - 
   - 
@@ -61,6 +63,9 @@ TagManager:
     locked: 0
   - name: Hazards
     uniqueID: 4022505355
+    locked: 0
+  - name: Interactable
+    uniqueID: 752258545
     locked: 0
   m_RenderingLayers:
   - Default
