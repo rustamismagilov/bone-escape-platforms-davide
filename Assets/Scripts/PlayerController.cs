@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float walkSpeed = 10f;
     [SerializeField] float sprintSpeed = 50f;
     [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
+
+    [SerializeField] int healthAmount = 1;
     [SerializeField] int damageAmount = 40;
 
     Vector2 moveInput;
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
         CheckFlipSprite();
         CheckTouchGround();
         CheckJump();
+        CheckDead();
     }
 
     // on move
@@ -81,36 +84,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*
+    
     // on collision
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D other)
     {
         // with capsuleCollider the player die
-        if (!FindFirstObjectByType<GameSessionController>().isWinning
-            && (capsuleCollider2d.IsTouchingLayers(LayerMask.GetMask("Hazards"))
-            || boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Hazards"))))
+        if ((boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy"))))
         {
-            Die();
+            FindFirstObjectByType<EnemyController>().Hit((other.collider is CapsuleCollider2D) ? damageAmount : 0);
         }
     }
-
-    // on trigger
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // with boxCollider the player just bounce away
-        if (!FindFirstObjectByType<GameSessionController>().isDead
-            && boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy")))
-        {
-            rb2d.linearVelocity = deathKick;
-        }
-        // with capsuleCollider the player die
-        if (!FindFirstObjectByType<GameSessionController>().isWinning
-            && (capsuleCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy"))))
-        {
-            Die();
-        }
-    }
-    */
 
     // check move
     void CheckMove()
@@ -161,26 +144,25 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isJumping", isJumping);
     }
 
-    // Hit
-    public void Hit(int damage)
+    // check if is alive
+    void CheckDead()
     {
-        if (damage > 0)
+        if (healthAmount <= 0)
         {
-            Die();
-        } else
-        {
-            rb2d.linearVelocity = deathKick;
+            // set is dead
+            isAlive = false;
+            animator.SetTrigger("die");
+            FindFirstObjectByType<GameSessionController>().ProcessPlayerDeath();
         }
     }
 
-    // Die
-    void Die()
+    // Hit
+    public void Hit(int damage)
     {
-        // set is dead
-        isAlive = false;
-        animator.SetTrigger("die");
+        if (FindFirstObjectByType<GameSessionController>().isWinning)
+            return;
+
+        healthAmount -= damage;
         rb2d.linearVelocity = deathKick;
-        // check lives
-        FindFirstObjectByType<GameSessionController>().ProcessPlayerDeath();
     }
 }

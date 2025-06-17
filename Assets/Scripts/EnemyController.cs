@@ -4,7 +4,9 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
     [SerializeField] float jumpSpeed = 5f;
-    [SerializeField] int life = 100;
+    [SerializeField] float dieDelay = 4f;
+
+    [SerializeField] int healthAmount = 100;
     [SerializeField] int damageAmount = 100;
 
     Vector2 moveInput;
@@ -76,14 +78,12 @@ public class EnemyController : MonoBehaviour
     }
 
     // on trigger
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D other)
     {
         // with boxCollider the player just bounce away
-        if (!FindFirstObjectByType<GameSessionController>().isDead
-            && boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Player")))
+        if (boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
-            Debug.Log((collider is CapsuleCollider2D) ? damageAmount : 0);
-            FindFirstObjectByType<PlayerController>().Hit((collider is CapsuleCollider2D) ? damageAmount : 0);
+            FindFirstObjectByType<PlayerController>().Hit((other is CapsuleCollider2D) ? damageAmount : 0);
         }
     }
 
@@ -116,14 +116,15 @@ public class EnemyController : MonoBehaviour
     // check if is alive
     void CheckDead()
     {
-        if (life <= 0)
+        if (healthAmount <= 0)
         {
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
             capsuleCollider2d.excludeLayers = LayerMask.GetMask("Player");
+            boxCollider2d.excludeLayers = LayerMask.GetMask("Player");
             rb2d.linearVelocity = new Vector2(0, rb2d.linearVelocity.y);
-            Destroy(this.gameObject, 5f);
+            Destroy(this.gameObject, dieDelay);
         }
     }
 
@@ -132,7 +133,7 @@ public class EnemyController : MonoBehaviour
     {
         //Debug.Log("Start hit");
         isHit = true;
-        life -= damage;
+        healthAmount -= damage;
         animator.SetTrigger("hit");
         Invoke(nameof(EndHit), 0.5f);
     }

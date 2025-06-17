@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+public class Coin : MonoBehaviour
 {
     [SerializeField] AudioClip pickupSound;
 

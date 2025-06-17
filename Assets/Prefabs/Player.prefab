@@ -273,4 +273,5 @@ MonoBehaviour:
   walkSpeed: 10
   sprintSpeed: 50
   deathKick: {x: 10, y: 10}
+  healthAmount: 1
   damageAmount: 40
