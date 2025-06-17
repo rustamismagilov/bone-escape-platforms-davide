@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9173268010186314500}
   - component: {fileID: 1259755416282236935}
   - component: {fileID: 7242258931480272950}
+  - component: {fileID: 6814807552817948688}
   - component: {fileID: 5447561778119981399}
   m_Layer: 9
   m_Name: Skeleton
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622930591
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 45966500872709769, guid: c20288abafd136c41ba4a90f443af23e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -170,11 +171,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.1, y: -0.2}
+  m_Offset: {x: 0.21, y: -0.26}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -184,8 +185,45 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.9, y: 1.7}
+  m_Size: {x: 0.14, y: 1.52}
   m_EdgeRadius: 0
+--- !u!70 &6814807552817948688
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706709260245231966}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.18, y: -0.21}
+  m_Size: {x: 0.76, y: 1.67}
+  m_Direction: 0
 --- !u!114 &5447561778119981399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,3 +239,4 @@ MonoBehaviour:
   speed: 3
   jumpSpeed: 10
   life: 100
+  damageAmount: 100

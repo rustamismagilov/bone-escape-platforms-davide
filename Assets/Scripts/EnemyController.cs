@@ -5,13 +5,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float speed = 10f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] int life = 100;
+    [SerializeField] int damageAmount = 100;
 
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
+    CapsuleCollider2D capsuleCollider2d;
     BoxCollider2D boxCollider2d;
 
-    bool hasHorizontalSpeed = false; 
+    bool hasHorizontalSpeed = false;
     bool isTouchingGround = false;
     bool isAlive = true;
     bool isHit = false;
@@ -21,13 +23,14 @@ public class EnemyController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        capsuleCollider2d = GetComponent<CapsuleCollider2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InvokeRepeating(nameof(OnMove), 2f, 2f);
-        InvokeRepeating(nameof(OnJump), 2f, 2f);
+        //InvokeRepeating(nameof(OnMove), 2f, 2f);
+        //InvokeRepeating(nameof(OnJump), 2f, 2f);
         InvokeRepeating(nameof(OnAttack), 2f, 2f);
     }
 
@@ -72,6 +75,18 @@ public class EnemyController : MonoBehaviour
         animator.SetBool("isAttacking", randomValue);
     }
 
+    // on trigger
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        // with boxCollider the player just bounce away
+        if (!FindFirstObjectByType<GameSessionController>().isDead
+            && boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Player")))
+        {
+            Debug.Log((collider is CapsuleCollider2D) ? damageAmount : 0);
+            FindFirstObjectByType<PlayerController>().Hit((collider is CapsuleCollider2D) ? damageAmount : 0);
+        }
+    }
+
     // check move
     void CheckMove()
     {
@@ -95,7 +110,7 @@ public class EnemyController : MonoBehaviour
     // check if is touching the ground
     void CheckTouchGround()
     {
-        isTouchingGround = boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Bouncy"));
+        isTouchingGround = capsuleCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Bouncy"));
     }
 
     // check if is alive
@@ -106,7 +121,7 @@ public class EnemyController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
-            boxCollider2d.excludeLayers = LayerMask.GetMask("Player");
+            capsuleCollider2d.excludeLayers = LayerMask.GetMask("Player");
             rb2d.linearVelocity = new Vector2(0, rb2d.linearVelocity.y);
             Destroy(this.gameObject, 5f);
         }
@@ -115,14 +130,11 @@ public class EnemyController : MonoBehaviour
     // hit the enemy
     public void Hit(int damage)
     {
-        // hit 
+        //Debug.Log("Start hit");
         isHit = true;
+        life -= damage;
         animator.SetTrigger("hit");
         Invoke(nameof(EndHit), 0.5f);
-        //Debug.Log("Start hit");
-
-        // remove life
-        life -= damage;
     }
     // end hit the enemy
     void EndHit()

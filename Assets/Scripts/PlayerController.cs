@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     CapsuleCollider2D capsuleCollider2d;
     BoxCollider2D boxCollider2d;
-    EnemyController enemyController;
 
     bool hasHorizontalSpeed = false;
     bool isJumpStarting = false;        // there is a short period of time between the begin of the jump and the moment when the player doesn t touch the gound anymore.. in this period isJumpStarting is true
@@ -31,8 +30,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         capsuleCollider2d = GetComponent<CapsuleCollider2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
-
-        enemyController = FindFirstObjectByType<EnemyController>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -84,29 +81,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     // on collision
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // with boxCollider the player hits the enemy
+        // with capsuleCollider the player die
+        if (!FindFirstObjectByType<GameSessionController>().isWinning
+            && (capsuleCollider2d.IsTouchingLayers(LayerMask.GetMask("Hazards"))
+            || boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Hazards"))))
+        {
+            Die();
+        }
+    }
+
+    // on trigger
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // with boxCollider the player just bounce away
         if (!FindFirstObjectByType<GameSessionController>().isDead
             && boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy")))
         {
-            enemyController.Hit(damageAmount);
-            //Debug.Log("Hit");
+            rb2d.linearVelocity = deathKick;
         }
         // with capsuleCollider the player die
         if (!FindFirstObjectByType<GameSessionController>().isWinning
-            && (capsuleCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazards"))
-            || boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Hazards"))))
+            && (capsuleCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy"))))
         {
-            // set is dead
-            isAlive = false;
-            animator.SetTrigger("die");
-            rb2d.linearVelocity = deathKick;
-            // check lives
-            FindFirstObjectByType<GameSessionController>().ProcessPlayerDeath();
+            Die();
         }
     }
+    */
 
     // check move
     void CheckMove()
@@ -115,7 +119,7 @@ public class PlayerController : MonoBehaviour
         Vector2 playerVelocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   // move only in X axis and leave the Y as is
         rb2d.linearVelocity = playerVelocity;
 
-        hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; // movement > 0 // never use 0 because, depending of the precision of unity and joystick and whatever, we have to set a dead zone, for this use Epsilon (is very near to 0)
+        hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; // movement > 0
         animator.SetBool("isWalking", hasHorizontalSpeed);
     }
 
@@ -131,7 +135,7 @@ public class PlayerController : MonoBehaviour
     // check if is touching the ground
     void CheckTouchGround()
     {
-        isTouchingGround = boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Bouncy", "Enemy"));
+        isTouchingGround = boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Enemy"));
     }
 
     // check if is jumping
@@ -157,5 +161,26 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isJumping", isJumping);
     }
 
+    // Hit
+    public void Hit(int damage)
+    {
+        if (damage > 0)
+        {
+            Die();
+        } else
+        {
+            rb2d.linearVelocity = deathKick;
+        }
+    }
 
+    // Die
+    void Die()
+    {
+        // set is dead
+        isAlive = false;
+        animator.SetTrigger("die");
+        rb2d.linearVelocity = deathKick;
+        // check lives
+        FindFirstObjectByType<GameSessionController>().ProcessPlayerDeath();
+    }
 }

@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,8 +8,8 @@ public class GameSessionController : MonoBehaviour
     [SerializeField] int playerCoins = 0;
     [SerializeField] float levelLoadDelay = 1f;
 
-    [NonSerialized] public bool isDead = false;
-    [NonSerialized] public bool isWinning = false;
+    [HideInInspector] public bool isDead = false;
+    [HideInInspector] public bool isWinning = false;
 
     TextMeshProUGUI playerLivesTextbox;
     TextMeshProUGUI playerCoinsTextbox;

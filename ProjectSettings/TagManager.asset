@@ -49,9 +49,6 @@ TagManager:
   - name: World
     uniqueID: 1597725867
     locked: 0
-  - name: Water
-    uniqueID: 923637043
-    locked: 0
   - name: Decoration
     uniqueID: 722931783
     locked: 0
