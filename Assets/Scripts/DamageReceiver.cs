@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DamageReceiver : MonoBehaviour
@@ -6,15 +7,10 @@ public class DamageReceiver : MonoBehaviour
     //[SerializeField] Collider2D myCollider;
 
 
-    void Hit(int damage) // Destroys the game object that this script is attached to
-    {
-        health -= damage;
-        Debug.Log(health);
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Ciaoneeeee");
+        Debug.Log("Ciaoneeeee, this is: " + this.gameObject.name+ ", and collide with: " + other.gameObject.name);
 
 
         DamageDealer damageDealer = other.GetComponent<DamageDealer>();
@@ -45,5 +41,17 @@ public class DamageReceiver : MonoBehaviour
         }
         */
 
+    }
+    public void Hit(int damage) // Destroys the game object that this script is attached to
+    {
+        health -= damage;
+        if (health > 0)
+        {
+            gameObject.GetComponentInParent<Animator>().SetTrigger("hit");
+        } else
+        {
+            gameObject.GetComponentInParent<Animator>().SetTrigger("die");
+            Destroy(this.gameObject, 2f);
+        }
     }
 }

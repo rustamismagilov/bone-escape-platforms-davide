@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Status")]
     [SerializeField] int healthAmount = 1;
-    [SerializeField] int damageAmount = 40;
 
     [Header("Hit")]
     [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
@@ -21,7 +20,6 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
-    CapsuleCollider2D capsuleCollider2d;
     BoxCollider2D boxCollider2d;
 
     float currentSpeed;
@@ -36,7 +34,6 @@ public class PlayerController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        capsuleCollider2d = GetComponent<CapsuleCollider2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
 
         currentSpeed = speed;
@@ -91,17 +88,6 @@ public class PlayerController : MonoBehaviour
             currentSpeed = speed;
         }
     }
-
-    
-    // on collision
-    /*void OnCollisionEnter2D(Collision2D other)
-    {
-        // with capsuleCollider the player die
-        if ((boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy"))))
-        {
-            //FindFirstObjectByType<SkeletonController>().Hit((other.collider is CapsuleCollider2D) ? damageAmount : 0);
-        }
-    }*/
 
     // check move
     void CheckMove()

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlimeController : MonoBehaviour
@@ -13,9 +12,6 @@ public class SlimeController : MonoBehaviour
     [SerializeField] float jumpFrequency = 2f;
     [SerializeField] float jumpSpeed = 5f;
 
-    [Header("Attack")]
-    [SerializeField] int damageAmount = 100;
-
     [Header("Status")]
     [SerializeField] int healthAmount = 100;
     [SerializeField] float hitDelay = 0.5f;
@@ -24,7 +20,6 @@ public class SlimeController : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
-    CapsuleCollider2D capsuleCollider2d;
     BoxCollider2D boxCollider2d;
 
     bool hasHorizontalSpeed = false;
@@ -37,7 +32,6 @@ public class SlimeController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        capsuleCollider2d = GetComponent<CapsuleCollider2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -88,16 +82,6 @@ public class SlimeController : MonoBehaviour
         }
     }
 
-    // on trigger
-    /*void OnTriggerEnter2D(Collider2D other)
-    {
-        // with boxCollider the player just bounce away
-        if (boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Player")))
-        {
-            FindFirstObjectByType<PlayerController>().Hit((other is CapsuleCollider2D) ? damageAmount : 0);
-        }
-    }*/
-
     // check move
     void CheckMove()
     {
@@ -120,7 +104,7 @@ public class SlimeController : MonoBehaviour
     // check if is touching the ground
     void CheckTouchGround()
     {
-        isTouchingGround = capsuleCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Bouncy"));
+        isTouchingGround = boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Bouncy"));
     }
 
     // check if is alive
@@ -131,8 +115,6 @@ public class SlimeController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
-            capsuleCollider2d.excludeLayers = LayerMask.GetMask("Player");
-            boxCollider2d.excludeLayers = LayerMask.GetMask("Player");
             rb2d.linearVelocity = new Vector2(0, rb2d.linearVelocity.y);
             Destroy(this.gameObject, dieDelay);
         }
