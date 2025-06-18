@@ -23,7 +23,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.2955935
+        value: 0.31835938
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -34,7 +34,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Offset.x
-    path: 
+    path: Sword
     classID: 61
     script: {fileID: 0}
     flags: 0
@@ -44,7 +44,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.1474433
+        value: 0.10126686
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -55,7 +55,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Size.x
-    path: 
+    path: Sword
     classID: 61
     script: {fileID: 0}
     flags: 0
@@ -106,7 +106,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 0
+      path: 1529145355
       attribute: 413499720
       script: {fileID: 0}
       typeID: 61
@@ -115,7 +115,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 0
+      path: 1529145355
       attribute: 4197328169
       script: {fileID: 0}
       typeID: 61
@@ -162,7 +162,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.2955935
+        value: 0.31835938
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -173,7 +173,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Offset.x
-    path: 
+    path: Sword
     classID: 61
     script: {fileID: 0}
     flags: 0
@@ -183,7 +183,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.1474433
+        value: 0.10126686
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -194,7 +194,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Size.x
-    path: 
+    path: Sword
     classID: 61
     script: {fileID: 0}
     flags: 0

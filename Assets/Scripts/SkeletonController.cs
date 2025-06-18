@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkeletonController : MonoBehaviour
@@ -16,7 +15,6 @@ public class SkeletonController : MonoBehaviour
     [Header("Attack")]
     [SerializeField] bool autoAttack = true;
     [SerializeField] float attackFrequency = 2f;
-    [SerializeField] int damageAmount = 100;
 
     [Header("Status")]
     [SerializeField] int healthAmount = 100;
@@ -107,15 +105,6 @@ public class SkeletonController : MonoBehaviour
         }
     }
 
-    // on trigger
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Player")))
-        {
-            FindFirstObjectByType<PlayerController>().Hit((other is CapsuleCollider2D) ? damageAmount : 0);
-        }
-    }
-
     // check move
     void CheckMove()
     {
@@ -149,8 +138,6 @@ public class SkeletonController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
-            capsuleCollider2d.excludeLayers = LayerMask.GetMask("Player");
-            boxCollider2d.excludeLayers = LayerMask.GetMask("Player");
             rb2d.linearVelocity = new Vector2(0, rb2d.linearVelocity.y);
             Destroy(this.gameObject, dieDelay);
         }

@@ -12,7 +12,14 @@ public class DamageDealer : MonoBehaviour
     /*
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Ciaoneeeee 2");
+        Debug.Log("Ciaoneeee2");
+
+
+        DamageReceiver damageReceiver = other.GetComponent<DamageReceiver>();
+        if (damageReceiver != null)
+        {
+            damageReceiver.Hit(damage);
+        }
 
     }
     */
