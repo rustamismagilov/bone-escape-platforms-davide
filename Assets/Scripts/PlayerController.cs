@@ -10,10 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float jumpEffectDelay = 1f;
-
-    [Header("Status")]
-    [SerializeField] int healthAmount = 1;
-    [SerializeField] int damageAmount = 40;
+    public Collider2D groundCheckCollider;
 
     [Header("Hit")]
     [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
@@ -22,7 +19,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb2d;
     Animator animator;
     CapsuleCollider2D capsuleCollider2d;
-    BoxCollider2D boxCollider2d;
+
+
+    DamageReceiver damageReceiver;
 
     float currentSpeed;
     bool hasHorizontalSpeed = false;
@@ -37,7 +36,7 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         capsuleCollider2d = GetComponent<CapsuleCollider2D>();
-        boxCollider2d = GetComponent<BoxCollider2D>();
+        damageReceiver = GetComponent<DamageReceiver>();
 
         currentSpeed = speed;
     }
@@ -92,17 +91,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
-    // on collision
-    /*void OnCollisionEnter2D(Collision2D other)
-    {
-        // with capsuleCollider the player die
-        if ((boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy"))))
-        {
-            //FindFirstObjectByType<SkeletonController>().Hit((other.collider is CapsuleCollider2D) ? damageAmount : 0);
-        }
-    }*/
-
     // check move
     void CheckMove()
     {
@@ -126,7 +114,7 @@ public class PlayerController : MonoBehaviour
     // check if is touching the ground
     void CheckTouchGround()
     {
-        isTouchingGround = boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Enemy"));
+        isTouchingGround = groundCheckCollider.IsTouchingLayers(LayerMask.GetMask("Ground", "Enemy"));
     }
 
     // check if is jumping
@@ -155,7 +143,7 @@ public class PlayerController : MonoBehaviour
     // check if is alive
     void CheckDead()
     {
-        if (healthAmount <= 0)
+        if (damageReceiver.health <= 0)
         {
             // set is dead
             isAlive = false;
@@ -170,7 +158,7 @@ public class PlayerController : MonoBehaviour
         if (FindFirstObjectByType<GameSessionController>().isWinning)
             return;
 
-        healthAmount -= damage;
+        damageReceiver.health -= damage;
         rb2d.linearVelocity = deathKick;
     }
 }

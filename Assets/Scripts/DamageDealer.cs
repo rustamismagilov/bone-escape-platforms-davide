@@ -2,18 +2,9 @@ using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
 {
-    [SerializeField] int damage;
+    [SerializeField] int damage = 10;
+    public bool canDealDamage = false;
 
-    public int GetDamage() // Returns the damage value
-    {
-        return damage;
-    }
-
-    /*
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Ciaoneeeee 2");
-
-    }
-    */
+    public int GetDamage() => damage;
+    public bool IsActive() => canDealDamage;
 }

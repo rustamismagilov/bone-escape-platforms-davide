@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LivesTextbox
   - CoinsTextbox
+  - Enemy
   layers:
   - Default
   - TransparentFX
