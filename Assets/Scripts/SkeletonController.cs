@@ -1,13 +1,27 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class SkeletonController : MonoBehaviour
 {
+    [Header("Move")]
+    [SerializeField] bool autoMove = true;
+    [SerializeField] float moveFrequency = 2f;
     [SerializeField] float speed = 10f;
-    [SerializeField] float jumpSpeed = 5f;
-    [SerializeField] float dieDelay = 4f;
 
-    [SerializeField] int healthAmount = 100;
+    [Header("Jump")]
+    [SerializeField] bool autoJump = true;
+    [SerializeField] float jumpFrequency = 2f;
+    [SerializeField] float jumpSpeed = 5f;
+
+    [Header("Attack")]
+    [SerializeField] bool autoAttack = true;
+    [SerializeField] float attackFrequency = 2f;
     [SerializeField] int damageAmount = 100;
+
+    [Header("Status")]
+    [SerializeField] int healthAmount = 100;
+    [SerializeField] float hitDelay = 0.5f;
+    [SerializeField] float dieDelay = 4f;
 
     Vector2 moveInput;
     Rigidbody2D rb2d;
@@ -31,9 +45,9 @@ public class EnemyController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //InvokeRepeating(nameof(OnMove), 2f, 2f);
-        //InvokeRepeating(nameof(OnJump), 2f, 2f);
-        InvokeRepeating(nameof(OnAttack), 2f, 2f);
+        InvokeRepeating(nameof(OnMove), moveFrequency, moveFrequency);
+        InvokeRepeating(nameof(OnJump), jumpFrequency, jumpFrequency);
+        InvokeRepeating(nameof(OnAttack), attackFrequency, attackFrequency);
     }
 
     // Update is called once per frame
@@ -50,37 +64,52 @@ public class EnemyController : MonoBehaviour
     // on move
     void OnMove()
     {
-        if (!isAlive || isHit) return;
+        if (!isAlive) return;
 
-        int randomX = Random.Range(-1, 2);
-        moveInput = new Vector2(randomX, rb2d.linearVelocity.y);
+        if (isHit || !autoMove)
+        {
+            moveInput = new Vector2(0, rb2d.linearVelocity.y);
+        } else
+        {
+            int randomX = Random.Range(-1, 2);
+            moveInput = new Vector2(randomX, rb2d.linearVelocity.y);
+        }
     }
 
     // on jump
     void OnJump()
     {
-        if (!isAlive || isHit) return;
+        if (!isAlive || isHit || !autoJump || !isTouchingGround) return;
 
-        bool randomValue = Random.Range(0, 2) == 1 ? true : false;
-        if (randomValue && isTouchingGround)
+        if (isTouchingGround)
         {
-            rb2d.linearVelocity += new Vector2(0f, jumpSpeed);
+            bool randomValue = Random.Range(0, 2) == 1 ? true : false;
+            if (randomValue)
+            {
+                rb2d.linearVelocity += new Vector2(0f, jumpSpeed);
+            }
         }
     }
 
     // on attack
     void OnAttack()
     {
-        if (!isAlive || isHit) return;
+        if (!isAlive) return;
 
-        bool randomValue = Random.Range(0, 2) == 1 ? true : false;
-        animator.SetBool("isAttacking", randomValue);
+        if (isHit || !autoAttack)
+        {
+            animator.SetBool("isAttacking", false);
+        }
+        else
+        {
+            bool randomValue = Random.Range(0, 2) == 1 ? true : false;
+            animator.SetBool("isAttacking", randomValue);
+        }
     }
 
     // on trigger
     void OnTriggerEnter2D(Collider2D other)
     {
-        // with boxCollider the player just bounce away
         if (boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Player")))
         {
             FindFirstObjectByType<PlayerController>().Hit((other is CapsuleCollider2D) ? damageAmount : 0);
@@ -90,11 +119,10 @@ public class EnemyController : MonoBehaviour
     // check move
     void CheckMove()
     {
-        // we have to add interpolation to the move, when it stop don t just stop, but it smoothly stops
-        Vector2 playerVelocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   // move only in X axis and leave the Y as is
+        Vector2 playerVelocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   
         rb2d.linearVelocity = playerVelocity;
 
-        hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; // movement > 0 // never use 0 because, depending of the precision of unity and joystick and whatever, we have to set a dead zone, for this use Epsilon (is very near to 0) 
+        hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; 
         animator.SetBool("isWalking", hasHorizontalSpeed);
     }
 
@@ -103,7 +131,7 @@ public class EnemyController : MonoBehaviour
     {
         if (hasHorizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(rb2d.linearVelocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);  // I change the sign of localScale.X and keep the same localScale.Y
+            transform.localScale = new Vector2(Mathf.Sign(rb2d.linearVelocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y); 
         }
     }
 
@@ -131,11 +159,14 @@ public class EnemyController : MonoBehaviour
     // hit the enemy
     public void Hit(int damage)
     {
-        //Debug.Log("Start hit");
-        isHit = true;
-        healthAmount -= damage;
-        animator.SetTrigger("hit");
-        Invoke(nameof(EndHit), 0.5f);
+        if (!isHit)
+        {
+            //Debug.Log("Start hit");
+            isHit = true;
+            healthAmount -= damage;
+            animator.SetTrigger("hit");
+            Invoke(nameof(EndHit), hitDelay);
+        }
     }
     // end hit the enemy
     void EndHit()

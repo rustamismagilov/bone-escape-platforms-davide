@@ -3,15 +3,20 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float speed = 10f;
+    [Header("Move")]
+    [SerializeField] float speed = 5f;
+    [SerializeField] float sprintSpeed = 20f;
+
+    [Header("Jump")]
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float jumpEffectDelay = 1f;
-    [SerializeField] float walkSpeed = 10f;
-    [SerializeField] float sprintSpeed = 50f;
-    [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
 
+    [Header("Status")]
     [SerializeField] int healthAmount = 1;
     [SerializeField] int damageAmount = 40;
+
+    [Header("Hit")]
+    [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
 
     Vector2 moveInput;
     Rigidbody2D rb2d;
@@ -19,6 +24,7 @@ public class PlayerController : MonoBehaviour
     CapsuleCollider2D capsuleCollider2d;
     BoxCollider2D boxCollider2d;
 
+    float currentSpeed;
     bool hasHorizontalSpeed = false;
     bool isJumpStarting = false;        // there is a short period of time between the begin of the jump and the moment when the player doesn t touch the gound anymore.. in this period isJumpStarting is true
     bool isJumping = false;
@@ -32,6 +38,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         capsuleCollider2d = GetComponent<CapsuleCollider2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
+
+        currentSpeed = speed;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -76,30 +84,30 @@ public class PlayerController : MonoBehaviour
 
         if (value.isPressed)
         {
-            speed = sprintSpeed;
+            currentSpeed = sprintSpeed;
         }
         else
         {
-            speed = walkSpeed;
+            currentSpeed = speed;
         }
     }
 
     
     // on collision
-    void OnCollisionEnter2D(Collision2D other)
+    /*void OnCollisionEnter2D(Collision2D other)
     {
         // with capsuleCollider the player die
         if ((boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Enemy"))))
         {
-            FindFirstObjectByType<EnemyController>().Hit((other.collider is CapsuleCollider2D) ? damageAmount : 0);
+            //FindFirstObjectByType<SkeletonController>().Hit((other.collider is CapsuleCollider2D) ? damageAmount : 0);
         }
-    }
+    }*/
 
     // check move
     void CheckMove()
     {
         // we have to add interpolation to the move, when it stop don t just stop, but it smoothly stops
-        Vector2 playerVelocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   // move only in X axis and leave the Y as is
+        Vector2 playerVelocity = new Vector2(moveInput.x * currentSpeed, rb2d.linearVelocity.y);   // move only in X axis and leave the Y as is
         rb2d.linearVelocity = playerVelocity;
 
         hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; // movement > 0

@@ -28,7 +28,7 @@ public class Exit : MonoBehaviour
 
     void CheckEnemyAlive()
     {
-        if (FindFirstObjectByType<EnemyController>() == null)
+        if (FindFirstObjectByType<SkeletonController>() == null)
         {
             isEnemyAlive = false;
             spriteRenderer.color = Color.white;
