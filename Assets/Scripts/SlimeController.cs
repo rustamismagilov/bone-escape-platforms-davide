@@ -11,53 +11,56 @@ public class SlimeController : MonoBehaviour
     [SerializeField] bool autoJump = true;
     [SerializeField] float jumpFrequency = 2f;
     [SerializeField] float jumpSpeed = 5f;
+    [SerializeField] Collider2D touchingGroundCollider;
 
-    [Header("Status")]
-    [SerializeField] int healthAmount = 100;
-    [SerializeField] float hitDelay = 0.5f;
+    [Header("Die")]
+    [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
     [SerializeField] float dieDelay = 4f;
 
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
-    BoxCollider2D boxCollider2d;
 
+    int healthAmount;
     bool hasHorizontalSpeed = false;
     bool isTouchingGround = false;
     bool isAlive = true;
-    bool isHit = false;
 
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        boxCollider2d = GetComponent<BoxCollider2D>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InvokeRepeating(nameof(OnMove), moveFrequency, moveFrequency);
-        InvokeRepeating(nameof(OnJump), jumpFrequency, jumpFrequency);
+        StartAI();
     }
-
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive || isHit) return;
+        if (!isAlive) return;
 
         CheckMove();
         CheckFlipSprite();
         CheckTouchGround();
+        CheckHealth();
         CheckDead();
     }
 
+    // start auto move, jump...
+    void StartAI()
+    {
+        InvokeRepeating(nameof(OnMove), moveFrequency, moveFrequency);
+        InvokeRepeating(nameof(OnJump), jumpFrequency, jumpFrequency);
+    }
     // on move
     void OnMove()
     {
         if (!isAlive) return;
 
-        if (isHit || !autoMove)
+        if (!autoMove)
         {
             moveInput = new Vector2(0, rb2d.linearVelocity.y);
         } else
@@ -66,11 +69,10 @@ public class SlimeController : MonoBehaviour
             moveInput = new Vector2(randomX, rb2d.linearVelocity.y);
         }
     }
-
     // on jump
     void OnJump()
     {
-        if (!isAlive || isHit || !autoJump || !isTouchingGround) return;
+        if (!isAlive || !autoJump || !isTouchingGround) return;
 
         if (isTouchingGround)
         {
@@ -86,13 +88,13 @@ public class SlimeController : MonoBehaviour
     void CheckMove()
     {
         // we have to add interpolation to the move, when it stop don t just stop, but it smoothly stops
-        Vector2 playerVelocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   // move only in X axis and leave the Y as is
-        rb2d.linearVelocity = playerVelocity;
+        Vector2 velocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   // move only in X axis and leave the Y as is
+        rb2d.linearVelocity = velocity;
 
         hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; // movement > 0 // never use 0 because, depending of the precision of unity and joystick and whatever, we have to set a dead zone, for this use Epsilon (is very near to 0) 
     }
 
-    // flip the player when it changes direction
+    // flip the sprite when it changes direction
     void CheckFlipSprite()
     {
         if (hasHorizontalSpeed)
@@ -104,7 +106,7 @@ public class SlimeController : MonoBehaviour
     // check if is touching the ground
     void CheckTouchGround()
     {
-        isTouchingGround = boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Bouncy"));
+        isTouchingGround = touchingGroundCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
     }
 
     // check if is alive
@@ -115,27 +117,20 @@ public class SlimeController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
-            rb2d.linearVelocity = new Vector2(0, rb2d.linearVelocity.y);
+            rb2d.linearVelocity = deathKick;
             Destroy(this.gameObject, dieDelay);
         }
     }
 
-    // hit the enemy
-    public void Hit(int damage)
+    // take the sum of health of all DamageReceiver inside di game object
+    void CheckHealth()
     {
-        if (!isHit)
+        int health = 0;
+        DamageReceiver[] receivers = GetComponentsInChildren<DamageReceiver>();
+        foreach (DamageReceiver receiver in receivers)
         {
-            //Debug.Log("Start hit");
-            isHit = true;
-            healthAmount -= damage;
-            animator.SetTrigger("hit");
-            Invoke(nameof(EndHit), hitDelay);
+            health += receiver.GetHelth();
         }
-    }
-    // end hit the enemy
-    void EndHit()
-    {
-        isHit = false;
-        //Debug.Log("End hit");
+        healthAmount = health;
     }
 }

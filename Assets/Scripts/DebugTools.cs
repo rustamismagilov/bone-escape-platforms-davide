@@ -19,9 +19,9 @@ public class DebugTools : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            FindFirstObjectByType<ScenePersist>().ResetScenePersist();
+            FindFirstObjectByType<SceneSession>().ResetSceneSession();
             SceneManager.LoadScene(0);
-            Destroy(FindFirstObjectByType<GameSessionController>());
+            Destroy(FindFirstObjectByType<GameSession>());
         }
     }
 }

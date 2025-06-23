@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
 {
+    [Header("Damage")]
     [SerializeField] int damage;
 
     public int GetDamage() // Returns the damage value
@@ -12,8 +13,7 @@ public class DamageDealer : MonoBehaviour
     /*
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Ciaoneeee2");
-
+        Debug.Log("Damage dealer");
 
         DamageReceiver damageReceiver = other.GetComponent<DamageReceiver>();
         if (damageReceiver != null)
