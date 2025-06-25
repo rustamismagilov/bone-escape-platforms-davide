@@ -6,7 +6,7 @@ public class HomeController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        ResetSessions();
     }
 
     // Update is called once per frame
@@ -30,5 +30,21 @@ public class HomeController : MonoBehaviour
     {
         //Debug.Log("OnCreditsClick");
         SceneManager.LoadScene(0);
+    }
+
+    // reset active sessions to start from zero
+    void ResetSessions()
+    {
+        GameSession[] gameSessions = FindObjectsByType<GameSession>(FindObjectsSortMode.None);
+        SceneSession[] sceneSessions = FindObjectsByType<SceneSession>(FindObjectsSortMode.None);
+
+        foreach (GameSession gameSession in gameSessions)
+        {
+            Destroy(gameSession.gameObject);
+        }
+        foreach (SceneSession sceneSession in sceneSessions)
+        {
+            Destroy(sceneSession.gameObject);
+        }
     }
 }

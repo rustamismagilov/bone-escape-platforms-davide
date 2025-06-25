@@ -14,9 +14,27 @@ public class Pickup : MonoBehaviour
         if (!wasCollected)
         {
             // play sound.. this play the sound from the position of the main camera
-            AudioSource.PlayClipAtPoint(pickupSound, Camera.main.transform.position);
-            // add to coins
-            FindFirstObjectByType<GameSession>().AddCoins(1);
+            if (pickupSound)
+            {
+                AudioSource.PlayClipAtPoint(pickupSound, Camera.main.transform.position);
+            }
+
+            // check what is pickuping
+            switch (gameObject.tag)
+            {
+                case "CoinPickup":
+                    FindFirstObjectByType<GameSession>().AddCoins(1);
+                    break;
+                case "LifePickup":
+                    FindFirstObjectByType<PlayerController>().AddHelth(40);
+                    break;
+                case "LivePickup":
+                    FindFirstObjectByType<GameSession>().AddLives(1);
+                    break;
+                default:
+                    break;
+            }
+
             // destroy
             wasCollected = true;
             gameObject.SetActive(false);

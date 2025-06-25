@@ -8,6 +8,9 @@ TagManager:
   - CoinsTextbox
   - Enemy
   - LifeSlider
+  - LifePickup
+  - LivePickup
+  - CoinPickup
   layers:
   - Default
   - TransparentFX
