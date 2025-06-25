@@ -3,7 +3,7 @@ using UnityEngine;
 public class DamageReceiver : MonoBehaviour
 {
     [Header("Status")]
-    [SerializeField] int health;
+    [SerializeField] int totalHealth = 100;
 
     [Header("Hit")]
     [SerializeField] float hitDuration = 0.5f;
@@ -12,6 +12,7 @@ public class DamageReceiver : MonoBehaviour
     Animator animator;
     Rigidbody2D rb2d;
 
+    int health;
     bool isHit = false;
 
 
@@ -20,6 +21,7 @@ public class DamageReceiver : MonoBehaviour
     {
         animator = GetComponentInParent<Animator>();
         rb2d = GetComponentInParent<Rigidbody2D>();
+        health = totalHealth;
     }
 
     // On trigger from DamageDealer
@@ -34,10 +36,22 @@ public class DamageReceiver : MonoBehaviour
         }
     }
 
+    // get total health
+    public int GetTotalHelth()
+    {
+        return totalHealth;
+    }
+
     // get health
     public int GetHelth()
     {
         return health;
+    }
+
+    // heal
+    public void Heal(int amount)
+    {
+        health = Mathf.Clamp(health + amount, 0, totalHealth);
     }
 
     // hit

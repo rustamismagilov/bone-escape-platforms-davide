@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody2D rb2d;
 
+    int totalHealthAmount;
     int healthAmount;
     float currentSpeed;
     bool hasHorizontalSpeed = false;
@@ -85,10 +86,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // get total health
+    public int GetTotalHealthAmount()
+    {
+        return totalHealthAmount;
+    }
     // get health amount
     public int GetHealthAmount()
     {
         return healthAmount;
+    }
+    // add health amount
+    public void AddHelth(int amount)
+    {
+        DamageReceiver receiver = GetComponentInChildren<DamageReceiver>();
+        receiver.Heal(amount);
     }
 
     // check move
@@ -138,12 +150,15 @@ public class PlayerController : MonoBehaviour
     // take the sum of health of all DamageReceiver inside di game object
     void CheckHealth()
     {
+        int totalHealth = 0;
         int health = 0;
         DamageReceiver[] receivers = GetComponentsInChildren<DamageReceiver>();
         foreach (DamageReceiver receiver in receivers)
         {
+            totalHealth += receiver.GetTotalHelth();
             health += receiver.GetHelth();
         }
+        totalHealthAmount = totalHealth;
         healthAmount = health;
     }
 }

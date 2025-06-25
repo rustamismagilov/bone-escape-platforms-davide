@@ -312,7 +312,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -443,6 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bdb3f38c03379745b9adc925f42a107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  totalHealth: 100
   hitDuration: 0.5
   hitKick: {x: 0, y: 10}

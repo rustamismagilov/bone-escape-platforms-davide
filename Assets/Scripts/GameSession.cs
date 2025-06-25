@@ -50,6 +50,7 @@ public class GameSession : MonoBehaviour
         playerCoinsTextbox = (GameObject.FindWithTag("CoinsTextbox")).GetComponent<TextMeshProUGUI>();
 
         playerLivesTextbox.text = playerLives.ToString();
+        playerLifeSlider.maxValue = FindFirstObjectByType<PlayerController>().GetTotalHealthAmount();
         playerLifeSlider.value = FindFirstObjectByType<PlayerController>().GetHealthAmount();
         playerCoinsTextbox.text = playerCoins.ToString();
     }
@@ -114,8 +115,13 @@ public class GameSession : MonoBehaviour
     // add coin
     public void AddCoins(int amount)
     {
-        // set value
         playerCoins += amount;
+    }
+
+    // add lives
+    public void AddLives(int amount)
+    {
+        playerLives += amount;
     }
 
 }
