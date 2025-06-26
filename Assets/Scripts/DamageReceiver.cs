@@ -2,48 +2,78 @@ using UnityEngine;
 
 public class DamageReceiver : MonoBehaviour
 {
-    [SerializeField] int health;
-    //[SerializeField] Collider2D myCollider;
+    [Header("Status")]
+    [SerializeField] int totalHealth = 100;
+
+    [Header("Hit")]
+    [SerializeField] float hitDuration = 0.5f;
+    [SerializeField] Vector2 hitKick = new Vector2(0, 10f);
+
+    Animator animator;
+    Rigidbody2D rb2d;
+
+    int health;
+    bool isHit = false;
 
 
-    void Hit(int damage) // Destroys the game object that this script is attached to
+    // Awake is called when the script instance is being loaded
+    private void Awake()
     {
-        health -= damage;
-        Debug.Log(health);
+        animator = GetComponentInParent<Animator>();
+        rb2d = GetComponentInParent<Rigidbody2D>();
+        health = totalHealth;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    // On trigger from DamageDealer
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Ciaoneeeee");
+        //Debug.Log("Damage receiver, this is: " + this.gameObject.name + ", and collide with: " + collider.gameObject.name);
 
-
-        DamageDealer damageDealer = other.GetComponent<DamageDealer>();
+        DamageDealer damageDealer = collider.GetComponent<DamageDealer>();
         if (damageDealer != null)
         {
             Hit(damageDealer.GetDamage());
         }
+    }
 
-        /*
-        if (other.gameObject.CompareTag("Player"))
+    // get total health
+    public int GetTotalHelth()
+    {
+        return totalHealth;
+    }
+
+    // get health
+    public int GetHelth()
+    {
+        return health;
+    }
+
+    // heal
+    public void Heal(int amount)
+    {
+        health = Mathf.Clamp(health + amount, 0, totalHealth);
+    }
+
+    // hit
+    public void Hit(int damage) 
+    {
+        if (health <= 0 || isHit) return;
+
+        health -= damage;
+
+        if (health > 0)
         {
-            Debug.Log("Player coll");
-            DamageDealer damageDealer = other.GetComponentInChildren<DamageDealer>();
-            if (damageDealer != null)
-            {
-                Hit(damageDealer.GetDamage());
-            }
-        }
+            isHit = true;
+            Invoke(nameof(EndHit), hitDuration);
 
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("Enemy coll");
-            DamageDealer damageDealer = other.GetComponentInChildren<DamageDealer>();
-            if (damageDealer != null)
-            {
-                Hit(damageDealer.GetDamage());
-            }
+            rb2d.linearVelocity = hitKick;
+            animator.SetTrigger("hit");
         }
-        */
-
+        // else Destroy(this.gameObject);
+    }
+    // end hit
+    void EndHit()
+    {
+        isHit = false;
     }
 }

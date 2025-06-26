@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkeletonController : MonoBehaviour
@@ -12,53 +11,54 @@ public class SkeletonController : MonoBehaviour
     [SerializeField] bool autoJump = true;
     [SerializeField] float jumpFrequency = 2f;
     [SerializeField] float jumpSpeed = 5f;
+    [SerializeField] Collider2D touchingGroundCollider;
 
     [Header("Attack")]
     [SerializeField] bool autoAttack = true;
     [SerializeField] float attackFrequency = 2f;
-    [SerializeField] int damageAmount = 100;
 
-    [Header("Status")]
-    [SerializeField] int healthAmount = 100;
-    [SerializeField] float hitDelay = 0.5f;
+    [Header("Die")]
+    [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
     [SerializeField] float dieDelay = 4f;
 
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
-    CapsuleCollider2D capsuleCollider2d;
-    BoxCollider2D boxCollider2d;
 
+    int healthAmount;
     bool hasHorizontalSpeed = false;
     bool isTouchingGround = false;
     bool isAlive = true;
-    bool isHit = false;
 
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        capsuleCollider2d = GetComponent<CapsuleCollider2D>();
-        boxCollider2d = GetComponent<BoxCollider2D>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InvokeRepeating(nameof(OnMove), moveFrequency, moveFrequency);
-        InvokeRepeating(nameof(OnJump), jumpFrequency, jumpFrequency);
-        InvokeRepeating(nameof(OnAttack), attackFrequency, attackFrequency);
+        StartAI();
     }
-
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive || isHit) return;
+        if (!isAlive) return;
 
         CheckMove();
         CheckFlipSprite();
         CheckTouchGround();
+        CheckHealth();
         CheckDead();
+    }
+
+    // start auto move, jump...
+    void StartAI()
+    {
+        InvokeRepeating(nameof(OnMove), moveFrequency, moveFrequency);
+        InvokeRepeating(nameof(OnJump), jumpFrequency, jumpFrequency);
+        InvokeRepeating(nameof(OnAttack), attackFrequency, attackFrequency);
     }
 
     // on move
@@ -66,7 +66,7 @@ public class SkeletonController : MonoBehaviour
     {
         if (!isAlive) return;
 
-        if (isHit || !autoMove)
+        if (!autoMove)
         {
             moveInput = new Vector2(0, rb2d.linearVelocity.y);
         } else
@@ -79,7 +79,7 @@ public class SkeletonController : MonoBehaviour
     // on jump
     void OnJump()
     {
-        if (!isAlive || isHit || !autoJump || !isTouchingGround) return;
+        if (!isAlive || !autoJump || !isTouchingGround) return;
 
         if (isTouchingGround)
         {
@@ -96,7 +96,7 @@ public class SkeletonController : MonoBehaviour
     {
         if (!isAlive) return;
 
-        if (isHit || !autoAttack)
+        if (!autoAttack)
         {
             animator.SetBool("isAttacking", false);
         }
@@ -107,20 +107,11 @@ public class SkeletonController : MonoBehaviour
         }
     }
 
-    // on trigger
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (boxCollider2d.IsTouchingLayers(LayerMask.GetMask("Player")))
-        {
-            FindFirstObjectByType<PlayerController>().Hit((other is CapsuleCollider2D) ? damageAmount : 0);
-        }
-    }
-
     // check move
     void CheckMove()
     {
-        Vector2 playerVelocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   
-        rb2d.linearVelocity = playerVelocity;
+        Vector2 velocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   
+        rb2d.linearVelocity = velocity;
 
         hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; 
         animator.SetBool("isWalking", hasHorizontalSpeed);
@@ -138,7 +129,7 @@ public class SkeletonController : MonoBehaviour
     // check if is touching the ground
     void CheckTouchGround()
     {
-        isTouchingGround = capsuleCollider2d.IsTouchingLayers(LayerMask.GetMask("Ground", "Bouncy"));
+        isTouchingGround = touchingGroundCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
     }
 
     // check if is alive
@@ -149,29 +140,20 @@ public class SkeletonController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
-            capsuleCollider2d.excludeLayers = LayerMask.GetMask("Player");
-            boxCollider2d.excludeLayers = LayerMask.GetMask("Player");
-            rb2d.linearVelocity = new Vector2(0, rb2d.linearVelocity.y);
+            rb2d.linearVelocity = deathKick;
             Destroy(this.gameObject, dieDelay);
         }
     }
 
-    // hit the enemy
-    public void Hit(int damage)
+    // take the sum of health of all DamageReceiver inside di game object
+    void CheckHealth()
     {
-        if (!isHit)
+        int health = 0;
+        DamageReceiver[] receivers = GetComponentsInChildren<DamageReceiver>();
+        foreach (DamageReceiver receiver in receivers)
         {
-            //Debug.Log("Start hit");
-            isHit = true;
-            healthAmount -= damage;
-            animator.SetTrigger("hit");
-            Invoke(nameof(EndHit), hitDelay);
+            health += receiver.GetHelth();
         }
-    }
-    // end hit the enemy
-    void EndHit()
-    {
-        isHit = false;
-        //Debug.Log("End hit");
+        healthAmount = health;
     }
 }

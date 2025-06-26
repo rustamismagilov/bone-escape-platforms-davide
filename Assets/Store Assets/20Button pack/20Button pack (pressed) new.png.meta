@@ -1,0 +1,650 @@
+fileFormatVersion: 2
+guid: d64ad505d412fd649a5c1489bd9e03a2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8593178090622156433
+    second: 20Button pack (pressed)_0
+  - first:
+      213: -8401740692898621335
+    second: 20Button pack (pressed)_1
+  - first:
+      213: -8021784396391977662
+    second: 20Button pack (pressed)_2
+  - first:
+      213: -7687026419733423421
+    second: 20Button pack (pressed)_3
+  - first:
+      213: -3379750538587642137
+    second: 20Button pack (pressed)_4
+  - first:
+      213: -183970177867512250
+    second: 20Button pack (pressed)_5
+  - first:
+      213: -4939678046672120942
+    second: 20Button pack (pressed)_6
+  - first:
+      213: 1157344897657703974
+    second: 20Button pack (pressed)_7
+  - first:
+      213: 663279794769702562
+    second: 20Button pack (pressed)_8
+  - first:
+      213: -4078722926522159339
+    second: 20Button pack (pressed)_9
+  - first:
+      213: -2334671041150795629
+    second: 20Button pack (pressed)_10
+  - first:
+      213: -5956886705811664172
+    second: 20Button pack (pressed)_11
+  - first:
+      213: 1642640332059672829
+    second: 20Button pack (pressed)_12
+  - first:
+      213: 3781980108421981454
+    second: 20Button pack (pressed)_13
+  - first:
+      213: -1631834152912552519
+    second: 20Button pack (pressed)_14
+  - first:
+      213: 397005941324551273
+    second: 20Button pack (pressed)_15
+  - first:
+      213: -7833067556866491376
+    second: 20Button pack (pressed)_16
+  - first:
+      213: -4261186437229387585
+    second: 20Button pack (pressed)_17
+  - first:
+      213: -4206659040139175180
+    second: 20Button pack (pressed)_18
+  - first:
+      213: 306355489156098190
+    second: 20Button pack (pressed)_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 97
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 2, y: 4, z: 5, w: 5}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f610cc02e06eeb880800000000000000
+      internalID: -8593178090622156433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_1
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 97
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96855d8aa55076b80800000000000000
+      internalID: -8401740692898621335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_2
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 96
+        width: 43
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 5, z: 6, w: 6}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24de84cb795eca090800000000000000
+      internalID: -8021784396391977662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 97
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ca1fb8e232325590800000000000000
+      internalID: -7687026419733423421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 74
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e66c06bac6b811d0800000000000000
+      internalID: -3379750538587642137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_5
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 74
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64601f21918627df0800000000000000
+      internalID: -183970177867512250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_6
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 73
+        width: 43
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2931053fcfcb27bb0800000000000000
+      internalID: -4939678046672120942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 74
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62e8f737d07bf0010800000000000000
+      internalID: 1157344897657703974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_8
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 51
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ae21f98571743900800000000000000
+      internalID: 663279794769702562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_9
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 51
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51fa76bbb177567c0800000000000000
+      internalID: -4078722926522159339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_10
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 50
+        width: 43
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 390c0d4ce05999fd0800000000000000
+      internalID: -2334671041150795629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 51
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d259dc1a13e45da0800000000000000
+      internalID: -5956886705811664172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_12
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 28
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df0852ecda4dbc610800000000000000
+      internalID: 1642640332059672829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_13
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 28
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e05e51eeeda4c7430800000000000000
+      internalID: 3781980108421981454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_14
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 27
+        width: 43
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bdfb47db7f8a59e0800000000000000
+      internalID: -1631834152912552519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 28
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9649e5adcc2728500800000000000000
+      internalID: 397005941324551273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_16
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 5
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01cf553fe8a5b4390800000000000000
+      internalID: -7833067556866491376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_17
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 5
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb0ea3713893dd4c0800000000000000
+      internalID: -4261186437229387585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_18
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 4
+        width: 43
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fa915d04e1fe95c0800000000000000
+      internalID: -4206659040139175180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 20Button pack (pressed)_19
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 5
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e88e32ab1b4604400800000000000000
+      internalID: 306355489156098190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: aef8f7c8644017542a46a8ea1e9203c6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      20Button pack (pressed)_0: -8593178090622156433
+      20Button pack (pressed)_1: -8401740692898621335
+      20Button pack (pressed)_10: -2334671041150795629
+      20Button pack (pressed)_11: -5956886705811664172
+      20Button pack (pressed)_12: 1642640332059672829
+      20Button pack (pressed)_13: 3781980108421981454
+      20Button pack (pressed)_14: -1631834152912552519
+      20Button pack (pressed)_15: 397005941324551273
+      20Button pack (pressed)_16: -7833067556866491376
+      20Button pack (pressed)_17: -4261186437229387585
+      20Button pack (pressed)_18: -4206659040139175180
+      20Button pack (pressed)_19: 306355489156098190
+      20Button pack (pressed)_2: -8021784396391977662
+      20Button pack (pressed)_3: -7687026419733423421
+      20Button pack (pressed)_4: -3379750538587642137
+      20Button pack (pressed)_5: -183970177867512250
+      20Button pack (pressed)_6: -4939678046672120942
+      20Button pack (pressed)_7: 1157344897657703974
+      20Button pack (pressed)_8: 663279794769702562
+      20Button pack (pressed)_9: -4078722926522159339
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

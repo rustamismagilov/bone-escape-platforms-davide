@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 595495721380746749}
   m_Layer: 11
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: CoinPickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 752258545
-  m_SortingLayer: 8
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 7675826601332790545, guid: 7a30e242ae910ed43abb32efd0e16981, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -161,7 +161,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -258,4 +258,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a1b66ba05950c44aedd0de53a33620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSound: {fileID: 8300000, guid: a99d9856b346165468dc99f0b33dc912, type: 3}
+  pickupSound: {fileID: 8300000, guid: 2adee715441ee7944bf8f6142b071dfc, type: 3}

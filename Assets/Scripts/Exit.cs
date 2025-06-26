@@ -3,38 +3,39 @@ using UnityEngine;
 public class Exit : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
-    bool isEnemyAlive;
+    bool isEnemiesAlive;
 
     // Awake is called when the script instance is being loaded
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
     // Update is called once per frame
     void Update()
     {
-        CheckEnemyAlive();
+        CheckEnemiesAlive();
     }
 
     // on enter (works only with player because I disabled the other interactions
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")
-            && !isEnemyAlive)
+        if (!isEnemiesAlive)
         {
-            FindFirstObjectByType<GameSessionController>().ProcessPlayerWin();
+            FindFirstObjectByType<GameSession>().ProcessPlayerWin();
         }
     }
 
-    void CheckEnemyAlive()
+    void CheckEnemiesAlive()
     {
-        if (FindFirstObjectByType<SkeletonController>() == null)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
-            isEnemyAlive = false;
+            isEnemiesAlive = false;
             spriteRenderer.color = Color.white;
-        } else
+        }
+        else
         {
-            isEnemyAlive = true;
+            isEnemiesAlive = true;
             spriteRenderer.color = Color.gray;
         }
     }
