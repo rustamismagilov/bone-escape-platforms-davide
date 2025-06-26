@@ -27,8 +27,13 @@ public class PlayerController : MonoBehaviour
     bool isAlive = true;
 
     // Awake is called when the script instance is being loaded
-    private void Awake()
+    void Awake()
     {
+        // destroy this if there is another player
+        int numGameSession = FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length;
+        if (numGameSession > 1) Destroy(gameObject);
+        else DontDestroyOnLoad(gameObject);
+
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
 

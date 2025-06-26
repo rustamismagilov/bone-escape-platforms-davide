@@ -68,7 +68,8 @@ public class MenuController : MonoBehaviour
     {
         if (openInputAction.WasPressedThisFrame())
         {
-            StartCoroutine(OpenMenu());
+            if (isOpen) StartCoroutine(CloseMenu());
+            else StartCoroutine(OpenMenu());
         }
     }
 
