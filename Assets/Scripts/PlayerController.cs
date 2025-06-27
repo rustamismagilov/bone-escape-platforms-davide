@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         // destroy this if there is another player
-        int numPlayer = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length;
-        if (numPlayer > 1) Destroy(gameObject);
+        int numPlayerController = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length;
+        if (numPlayerController > 1) Destroy(gameObject);
         else DontDestroyOnLoad(gameObject);
 
         audioSource = GetComponent<AudioSource>();
@@ -80,7 +80,8 @@ public class PlayerController : MonoBehaviour
         {
             rb2d.linearVelocity += new Vector2(rb2d.linearVelocity.x, jumpSpeed);
             animator.SetBool("isJumping", true);
-            audioSource.PlayOneShot(jumpSound);
+            if (jumpSound != null)
+                audioSource.PlayOneShot(jumpSound);
             Invoke(nameof(JumpEffectEnd), jumpEffectDuration);
         }
     }
@@ -93,6 +94,8 @@ public class PlayerController : MonoBehaviour
         if (value.isPressed)
         {
             currentSpeed = sprintSpeed;
+            if (sprintSound != null)
+                audioSource.PlayOneShot(sprintSound);
         }
         else
         {
@@ -156,6 +159,7 @@ public class PlayerController : MonoBehaviour
 
         hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; // movement > 0
         animator.SetBool("isWalking", hasHorizontalSpeed);
+        if (hasHorizontalSpeed && moveSound != null && !audioSource.isPlaying) audioSource.PlayOneShot(moveSound);
     }
 
     // flip the sprite when it changes direction
@@ -186,7 +190,8 @@ public class PlayerController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
-            audioSource.PlayOneShot(dieSound);
+            if (dieSound != null)
+                audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
             FindFirstObjectByType<GameSession>().ProcessPlayerDeath();
         }

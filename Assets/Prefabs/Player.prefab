@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 40
+  damageSound: {fileID: 0}
 --- !u!1 &3070753403756574202
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,10 +359,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   sprintSpeed: 10
+  moveSound: {fileID: 0}
+  sprintSound: {fileID: 8300000, guid: 766c39429b088334b8f9b54037a46a15, type: 3}
   jumpSpeed: 11
   jumpEffectDuration: 0.5
   touchingGroundCollider: {fileID: 8988662314807757320}
+  jumpSound: {fileID: 8300000, guid: 8ab16ad7321682e49a5e99c419fec869, type: 3}
   deathKick: {x: 10, y: 10}
+  dieSound: {fileID: 8300000, guid: 486d43c40b18f5148b106428ca4301dc, type: 3}
 --- !u!82 &8967135259521967120
 AudioSource:
   m_ObjectHideFlags: 0
@@ -383,8 +388,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 5
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -419,7 +424,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

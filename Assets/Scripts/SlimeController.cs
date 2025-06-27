@@ -80,13 +80,12 @@ public class SlimeController : MonoBehaviour
     {
         if (!isAlive || !autoJump || !isTouchingGround) return;
 
-        if (isTouchingGround)
+        bool randomValue = Random.Range(0, 2) == 1 ? true : false;
+        if (randomValue)
         {
-            bool randomValue = Random.Range(0, 2) == 1 ? true : false;
-            if (randomValue)
-            {
-                rb2d.linearVelocity += new Vector2(0f, jumpSpeed);
-            }
+            rb2d.linearVelocity += new Vector2(0f, jumpSpeed);
+            if (jumpSound != null)
+                audioSource.PlayOneShot(jumpSound);
         }
     }
 
@@ -98,6 +97,8 @@ public class SlimeController : MonoBehaviour
         rb2d.linearVelocity = velocity;
 
         hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; // movement > 0 // never use 0 because, depending of the precision of unity and joystick and whatever, we have to set a dead zone, for this use Epsilon (is very near to 0) 
+        if (hasHorizontalSpeed && moveSound != null && !audioSource.isPlaying) 
+            audioSource.PlayOneShot(moveSound);
     }
 
     // flip the sprite when it changes direction
@@ -123,7 +124,8 @@ public class SlimeController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
-            audioSource.PlayOneShot(dieSound);
+            if (dieSound != null)
+                audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
             Destroy(this.gameObject, dieDelay);
         }

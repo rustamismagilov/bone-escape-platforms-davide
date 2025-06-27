@@ -31,10 +31,10 @@ public class SceneSession : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // Called automatically when scene has finished loading
+    // Called automatically when scene has finished loading next scene
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        InitSceneSession();
+        if (currentSceneIndex == scene.buildIndex) InitSceneSession();
     }
 
     // init scene

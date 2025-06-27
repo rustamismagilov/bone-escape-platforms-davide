@@ -88,13 +88,11 @@ public class SkeletonController : MonoBehaviour
     {
         if (!isAlive || !autoJump || !isTouchingGround) return;
 
-        if (isTouchingGround)
+        bool randomValue = Random.Range(0, 2) == 1 ? true : false;
+        if (randomValue)
         {
-            bool randomValue = Random.Range(0, 2) == 1 ? true : false;
-            if (randomValue)
-            {
-                rb2d.linearVelocity += new Vector2(0f, jumpSpeed);
-            }
+            rb2d.linearVelocity += new Vector2(0f, jumpSpeed);
+            if (jumpSound != null) audioSource.PlayOneShot(jumpSound);
         }
     }
 
@@ -111,7 +109,7 @@ public class SkeletonController : MonoBehaviour
         {
             bool randomValue = Random.Range(0, 2) == 1 ? true : false;
             animator.SetBool("isAttacking", randomValue);
-            if (audioSource != null && attackSound != null && randomValue) 
+            if (randomValue && attackSound != null)
                 audioSource.PlayOneShot(attackSound);
         }
     }
@@ -124,6 +122,8 @@ public class SkeletonController : MonoBehaviour
 
         hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon;
         animator.SetBool("isWalking", hasHorizontalSpeed);
+        if (hasHorizontalSpeed && moveSound != null && !audioSource.isPlaying) 
+            audioSource.PlayOneShot(moveSound);
     }
 
     // flip the player when it changes direction
@@ -149,7 +149,8 @@ public class SkeletonController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
-            audioSource.PlayOneShot(dieSound);
+            if (dieSound != null) 
+                audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
             Destroy(this.gameObject, dieDelay);
         }
