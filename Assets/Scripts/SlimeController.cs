@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SlimeController : MonoBehaviour
 {
@@ -6,17 +7,21 @@ public class SlimeController : MonoBehaviour
     [SerializeField] bool autoMove = true;
     [SerializeField] float moveFrequency = 2f;
     [SerializeField] float speed = 10f;
+    [SerializeField] AudioClip moveSound;
 
     [Header("Jump")]
     [SerializeField] bool autoJump = true;
     [SerializeField] float jumpFrequency = 2f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] Collider2D touchingGroundCollider;
+    [SerializeField] AudioClip jumpSound;
 
     [Header("Die")]
     [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
     [SerializeField] float dieDelay = 4f;
+    [SerializeField] AudioClip dieSound;
 
+    AudioSource audioSource;
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
@@ -29,6 +34,7 @@ public class SlimeController : MonoBehaviour
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -117,6 +123,7 @@ public class SlimeController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
+            audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
             Destroy(this.gameObject, dieDelay);
         }

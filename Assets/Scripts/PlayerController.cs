@@ -6,18 +6,24 @@ public class PlayerController : MonoBehaviour
     [Header("Move")]
     [SerializeField] float speed = 5f;
     [SerializeField] float sprintSpeed = 20f;
+    [SerializeField] AudioClip moveSound;
+    [SerializeField] AudioClip sprintSound;
 
     [Header("Jump")]
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float jumpEffectDuration = 1f;
     [SerializeField] Collider2D touchingGroundCollider;
+    [SerializeField] AudioClip jumpSound;
 
     [Header("Die")]
     [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
+    [SerializeField] AudioClip dieSound;
 
+    AudioSource audioSource;
     Vector2 moveInput;
     Animator animator;
     Rigidbody2D rb2d;
+    DamageReceiver damageReceiver;
 
     int totalHealthAmount;
     int healthAmount;
@@ -30,12 +36,14 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         // destroy this if there is another player
-        int numGameSession = FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length;
-        if (numGameSession > 1) Destroy(gameObject);
+        int numPlayer = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length;
+        if (numPlayer > 1) Destroy(gameObject);
         else DontDestroyOnLoad(gameObject);
 
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        damageReceiver = GetComponentInChildren<DamageReceiver>();
 
         currentSpeed = speed;
     }
@@ -72,6 +80,7 @@ public class PlayerController : MonoBehaviour
         {
             rb2d.linearVelocity += new Vector2(rb2d.linearVelocity.x, jumpSpeed);
             animator.SetBool("isJumping", true);
+            audioSource.PlayOneShot(jumpSound);
             Invoke(nameof(JumpEffectEnd), jumpEffectDuration);
         }
     }
@@ -91,6 +100,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // reset player as new
+    public void ResetPlayer()
+    {
+        ResetPlayerUI();
+        ResetLive();
+    }
+    // reset player as new
+    public void ResetLive()
+    {
+        // set life 100%
+        ResetHelth();
+        // set alive
+        isAlive = true;
+    }
+    // reset player ui
+    public void ResetPlayerUI()
+    {
+        // remove animations triggers
+        animator.Rebind();
+        animator.Update(0f);
+        // reset moves
+        moveInput = new Vector2(0, 0);
+        currentSpeed = speed;
+        rb2d.linearVelocity = new Vector2(0, 0);
+    }
+
     // get total health
     public int GetTotalHealthAmount()
     {
@@ -104,8 +139,12 @@ public class PlayerController : MonoBehaviour
     // add health amount
     public void AddHelth(int amount)
     {
-        DamageReceiver receiver = GetComponentInChildren<DamageReceiver>();
-        receiver.Heal(amount);
+        damageReceiver.Heal(amount);
+    }
+    // reset health at 100%
+    public void ResetHelth()
+    {
+        damageReceiver.ResetHealth();
     }
 
     // check move
@@ -147,6 +186,7 @@ public class PlayerController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
+            audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
             FindFirstObjectByType<GameSession>().ProcessPlayerDeath();
         }

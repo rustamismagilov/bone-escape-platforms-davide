@@ -80,30 +80,26 @@ public class GameSession : MonoBehaviour
         {
             Invoke(nameof(LoadNextLevel), levelLoadDelay);
         }
-
     }
 
     // load next level
     void LoadNextLevel()
     {
+        FindFirstObjectByType<SceneSession>().ResetSceneSession();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
         SceneManager.LoadScene(nextSceneIndex);
-        FindFirstObjectByType<SceneSession>().ResetSceneSession();
         isWinning = false;
     }
 
     // take one life and update view
     void ResetLevel()
-    {
-        // load scene
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
+    { 
 
-        // position to start
-        // remove animations triggers
-        // set life 100%
-        // set the camera
+        FindFirstObjectByType<PlayerController>().ResetLive();
+        //FindFirstObjectByType<SceneSession>().InitSceneSession();
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex); 
     }
 
     // when the game finish

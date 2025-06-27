@@ -244,7 +244,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: efc9869a-f5a1-4015-8f5d-43f4ab36f81f
-      m_Path: <Keyboard>/q
+      m_Path: <Keyboard>/escape
       m_Interactions: 
       m_Processors: 
       m_Groups: 

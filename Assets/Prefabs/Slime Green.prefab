@@ -208,6 +208,7 @@ MonoBehaviour:
   touchingGroundCollider: {fileID: 4946375866918177289}
   deathKick: {x: 0, y: 10}
   dieDelay: 4
+  dieSound: {fileID: 8300000, guid: ad0c286630367754d95aefd1b3aa1dab, type: 3}
 --- !u!114 &4267740852627059613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bdb3f38c03379745b9adc925f42a107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  totalHealth: 100
   hitDuration: 0.5
   hitKick: {x: 0, y: 10}
+  hitSound: {fileID: 0}

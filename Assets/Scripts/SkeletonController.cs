@@ -6,21 +6,26 @@ public class SkeletonController : MonoBehaviour
     [SerializeField] bool autoMove = true;
     [SerializeField] float moveFrequency = 2f;
     [SerializeField] float speed = 10f;
+    [SerializeField] AudioClip moveSound;
 
     [Header("Jump")]
     [SerializeField] bool autoJump = true;
     [SerializeField] float jumpFrequency = 2f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] Collider2D touchingGroundCollider;
+    [SerializeField] AudioClip jumpSound;
 
     [Header("Attack")]
     [SerializeField] bool autoAttack = true;
     [SerializeField] float attackFrequency = 2f;
+    [SerializeField] AudioClip attackSound;
 
     [Header("Die")]
     [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
     [SerializeField] float dieDelay = 4f;
+    [SerializeField] AudioClip dieSound;
 
+    AudioSource audioSource;
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
@@ -33,6 +38,7 @@ public class SkeletonController : MonoBehaviour
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -69,7 +75,8 @@ public class SkeletonController : MonoBehaviour
         if (!autoMove)
         {
             moveInput = new Vector2(0, rb2d.linearVelocity.y);
-        } else
+        }
+        else
         {
             int randomX = Random.Range(-1, 2);
             moveInput = new Vector2(randomX, rb2d.linearVelocity.y);
@@ -104,16 +111,18 @@ public class SkeletonController : MonoBehaviour
         {
             bool randomValue = Random.Range(0, 2) == 1 ? true : false;
             animator.SetBool("isAttacking", randomValue);
+            if (audioSource != null && attackSound != null && randomValue) 
+                audioSource.PlayOneShot(attackSound);
         }
     }
 
     // check move
     void CheckMove()
     {
-        Vector2 velocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);   
+        Vector2 velocity = new Vector2(moveInput.x * speed, rb2d.linearVelocity.y);
         rb2d.linearVelocity = velocity;
 
-        hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; 
+        hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon;
         animator.SetBool("isWalking", hasHorizontalSpeed);
     }
 
@@ -122,7 +131,7 @@ public class SkeletonController : MonoBehaviour
     {
         if (hasHorizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(rb2d.linearVelocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y); 
+            transform.localScale = new Vector2(Mathf.Sign(rb2d.linearVelocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
         }
     }
 
@@ -140,6 +149,7 @@ public class SkeletonController : MonoBehaviour
             // set is dead
             isAlive = false;
             animator.SetTrigger("die");
+            audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
             Destroy(this.gameObject, dieDelay);
         }

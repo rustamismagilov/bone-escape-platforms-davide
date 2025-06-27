@@ -133,7 +133,7 @@ public class MenuController : MonoBehaviour
     {
         Time.timeScale = 0f;
         AudioListener.pause = true;
-        playerInput.enabled = false;
+        if (playerInput) playerInput.enabled = false;
     }
 
     // enable / unfreeze the world when the menu is close
@@ -141,6 +141,6 @@ public class MenuController : MonoBehaviour
     {
         Time.timeScale = 1f;
         AudioListener.pause = false;
-        playerInput.enabled = true;
+        if (playerInput) playerInput.enabled = true;
     }
 }

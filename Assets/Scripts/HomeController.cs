@@ -3,10 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class HomeController : MonoBehaviour
 {
+    // Awake is called once before the Start
+    void Awake()
+    {
+        ResetSessions();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ResetSessions();
     }
 
     // Update is called once per frame
