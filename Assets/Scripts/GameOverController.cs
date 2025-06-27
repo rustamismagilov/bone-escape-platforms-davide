@@ -45,22 +45,15 @@ public class GameOverController : MonoBehaviour
     {
         if (gameSession)
         {
-            int playerLives = gameSession.playerLives;
-            int playerCoins = gameSession.playerCoins;
-            playerLivesTextbox.text = playerLives.ToString();
-            playerCoinsTextbox.text = playerCoins.ToString();
-
-            if (playerLives > 0)
-            {
-                player.GetComponent<Animator>().SetTrigger("glory");
-                enemy.GetComponent<Animator>().SetTrigger("die");
-                enemy.GetComponent<SlimeController>().enabled = false;
-            } else
-            {
-                player.GetComponent<Animator>().SetTrigger("die");
-            }
-
-            gameSession.ResetGameSession();
+            // move gamesession outside dontdestroyonload
+            Scene activeScene = SceneManager.GetActiveScene();
+            SceneManager.MoveGameObjectToScene(gameSession.gameObject, activeScene);
+            // set score
+            playerLivesTextbox.text = gameSession.playerLives.ToString();
+            playerCoinsTextbox.text = gameSession.playerCoins.ToString();
+            Destroy(gameSession.transform.Find("ControlCanvas").gameObject);
+            // set player
+            player.transform.position = new Vector2(0, 0);
         }
     }
 }

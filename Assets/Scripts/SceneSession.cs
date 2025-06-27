@@ -4,22 +4,31 @@ using UnityEngine.SceneManagement;
 
 public class SceneSession : MonoBehaviour
 {
-    int currentSceneIndex;
+    int sceneKey;
 
     // Awake is called once before the Start()
     void Awake()
     {
         // check if there is another instance
-        int numSceneSession = FindObjectsByType<SceneSession>(FindObjectsSortMode.None).Length;
-        if (numSceneSession > 1) Destroy(gameObject);
-        else DontDestroyOnLoad(gameObject);
+        sceneKey = SceneManager.GetActiveScene().buildIndex;
+        SceneSession[] activeSceneSessions = FindObjectsByType<SceneSession>(FindObjectsSortMode.None);
+        foreach (var session in activeSceneSessions)
+        {
+            if (session == this) continue;
+
+            if (session.sceneKey == sceneKey)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            else Destroy(session.gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // save current index
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         // Subscribe to sceneLoaded event
         SceneManager.sceneLoaded += OnSceneLoaded;
         // first init
@@ -34,7 +43,7 @@ public class SceneSession : MonoBehaviour
     // Called automatically when scene has finished loading next scene
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (currentSceneIndex == scene.buildIndex) InitSceneSession();
+        if (sceneKey == scene.buildIndex) InitSceneSession();
     }
 
     // init scene
