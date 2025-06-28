@@ -3,6 +3,7 @@ using UnityEngine;
 public class BackgroundMusic : MonoBehaviour
 {
     [SerializeField] AudioClip backgroundClip;
+    [SerializeField] float volume = 0.5f;
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -19,6 +20,7 @@ public class BackgroundMusic : MonoBehaviour
         audio.loop = true;
         audio.playOnAwake = true;
         audio.spatialBlend = 0; // 2D sound
+        audio.volume = volume;
         audio.Play();
     }
 

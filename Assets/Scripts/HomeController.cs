@@ -22,18 +22,17 @@ public class HomeController : MonoBehaviour
     // when play next button is clicked
     public void OnPlayNextClick()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Level 1");
     }
     // when list of levels button is clicked
     public void OnLevelListClick()
     {
-        Debug.Log("LevelListClick");
+        //Debug.Log("LevelListClick");
     }
     // when credits button is clicked
     public void OnCreditsClick()
     {
         //Debug.Log("OnCreditsClick");
-        SceneManager.LoadScene(0);
     }
 
     // reset active sessions to start from zero

@@ -10,7 +10,6 @@ public class MenuController : MonoBehaviour
     [Header("Menu effect")]
     [SerializeField] float toggleEffectDuration = 0.5f;
 
-    GameSession gameSession;
     Animator myAnimator;
     PlayerInput playerInput;
 
@@ -20,7 +19,6 @@ public class MenuController : MonoBehaviour
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
-        gameSession = GetComponent<GameSession>();
         myAnimator = GetComponent<Animator>();
         playerInput = FindFirstObjectByType<PlayerInput>();
 
@@ -44,14 +42,13 @@ public class MenuController : MonoBehaviour
     // OnRestartButtonClick
     public void OnRestartLevelButtonClick()
     {
-        gameSession.ResetLevel();
+        FindFirstObjectByType<GameSession>().ResetLevel();
         EnableWorld();
     }
     // OnQuitButtonClick
     public void OnQuitButtonClick()
     {
-        gameSession.ResetGameSession();
-        SceneManager.LoadScene(0);
+        FindFirstObjectByType<GameSession>().QuitGame();
         EnableWorld();
     }
     // OnEnable

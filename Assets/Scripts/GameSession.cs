@@ -44,20 +44,29 @@ public class GameSession : MonoBehaviour
     // update UI
     void UpdateUI()
     {
-        playerLivesTextbox.text = playerLives.ToString();
-        playerLifeSlider.maxValue = FindFirstObjectByType<PlayerController>().GetTotalHealthAmount();
-        playerLifeSlider.value = FindFirstObjectByType<PlayerController>().GetHealthAmount();
-        playerCoinsTextbox.text = playerCoins.ToString();
+        if (playerLivesTextbox) playerLivesTextbox.text = playerLives.ToString();
+        if (playerLifeSlider)
+        {
+            playerLifeSlider.maxValue = FindFirstObjectByType<PlayerController>().GetTotalHealthAmount();
+            playerLifeSlider.value = FindFirstObjectByType<PlayerController>().GetHealthAmount();
+        }
+        if (playerCoinsTextbox) playerCoinsTextbox.text = playerCoins.ToString();
     }
 
     // check if the player is dead
     public void ProcessPlayerDeath()
     {
         //Debug.Log("lives: " + playerLives);
-        if (playerLives > 0) 
+        if (playerLives > 0)
+        {
+            playerLives--;
             Invoke(nameof(RepeatLevel), levelLoadDelay);
-        else 
+        }
+        else
+        {
+            isDead = true;
             Invoke(nameof(GameOver), levelLoadDelay);
+        }
     }
     // check if the player is dead
     public void ProcessPlayerWin()
@@ -65,29 +74,17 @@ public class GameSession : MonoBehaviour
         if (isWinning) return;
 
         isWinning = true;
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = currentSceneIndex + 1;
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-            Invoke(nameof(LoadNextLevel), levelLoadDelay);
+        Invoke(nameof(LoadNextLevel), levelLoadDelay);
     }
 
     // reset from 0 the level
     void RepeatLevel()
     {
-        playerLives--;
         FindFirstObjectByType<PlayerController>().ResetLive();
         //FindFirstObjectByType<SceneSession>().InitSceneSession();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
-    // when the game finish
-    void GameOver()
-    {
-        isDead = true;
-        //FindFirstObjectByType<SceneSession>().ResetSceneSession();
-        SceneManager.LoadScene("Game Over");
-    }
-
     // load next level
     void LoadNextLevel()
     {
@@ -97,8 +94,6 @@ public class GameSession : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
         isWinning = false;
     }
-
-
     // reset level with same condition
     public void ResetLevel()
     {
@@ -106,12 +101,33 @@ public class GameSession : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
-    // reset game if you lose
-    public void ResetGameSession()
+
+    // restart game from 1 level
+    public void RestartGame()
     {
-        SceneSession sceneSession = FindFirstObjectByType<SceneSession>();
-        if (sceneSession) Destroy(sceneSession);
         Destroy(gameObject);
+
+        SceneSession sceneSession = FindFirstObjectByType<SceneSession>();
+        if (sceneSession != null) Destroy(sceneSession.gameObject);
+
+        SceneManager.LoadScene("Level 1");
+    }
+    // quit game to home
+    public void QuitGame()
+    {
+        Destroy(gameObject);
+
+        SceneSession sceneSession = FindFirstObjectByType<SceneSession>();
+        if (sceneSession != null) Destroy(sceneSession.gameObject);
+
+        SceneManager.LoadScene("Home");
+    }
+
+    // when the game finish
+    void GameOver()
+    {
+        //FindFirstObjectByType<SceneSession>().ResetSceneSession();
+        SceneManager.LoadScene("Game Over");
     }
 
     // add coin

@@ -109,14 +109,6 @@ public class PlayerController : MonoBehaviour
         ResetPlayerUI();
         ResetLive();
     }
-    // reset player as new
-    public void ResetLive()
-    {
-        // set life 100%
-        ResetHelth();
-        // set alive
-        isAlive = true;
-    }
     // reset player ui
     public void ResetPlayerUI()
     {
@@ -127,6 +119,14 @@ public class PlayerController : MonoBehaviour
         moveInput = new Vector2(0, 0);
         currentSpeed = speed;
         rb2d.linearVelocity = new Vector2(0, 0);
+    }
+    // reset player as new
+    public void ResetLive()
+    {
+        // set life 100%
+        ResetHelth();
+        // set alive
+        isAlive = true;
     }
 
     // get total health

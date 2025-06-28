@@ -46,11 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51dcab995f7be214b8a0361f1b79a0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLives: 1
+  playerLives: 2
   playerCoins: 0
   levelLoadDelay: 1
-  isDead: 0
-  isWinning: 0
 --- !u!1 &1320460129846825297
 GameObject:
   m_ObjectHideFlags: 0

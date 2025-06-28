@@ -1,15 +1,16 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI playerLivesTextbox;
-    [SerializeField] TextMeshProUGUI playerCoinsTextbox;
-
     GameSession gameSession;
     GameObject player;
     GameObject enemy;
+
+    TextMeshProUGUI playerLivesTextbox;
+    TextMeshProUGUI playerCoinsTextbox;
 
     // Awake is called once before the Start
     void Awake()
@@ -17,6 +18,9 @@ public class GameOverController : MonoBehaviour
         gameSession = FindFirstObjectByType<GameSession>();
         player = (GameObject.FindWithTag("Player"));
         enemy = (GameObject.FindWithTag("Enemy"));
+
+        playerLivesTextbox = transform.Find("ScoreGroup").Find("LivesGroup").GetComponentInChildren<TextMeshProUGUI>();
+        playerCoinsTextbox = transform.Find("ScoreGroup").Find("CoinsGroup").GetComponentInChildren<TextMeshProUGUI>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,12 +37,12 @@ public class GameOverController : MonoBehaviour
     // when home next button is clicked
     public void OnHomeClick()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Home");
     }
     // when play again button is clicked
     public void OnPlayAgainClick()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Level 1");
     }
 
     void ProcessGameOver()

@@ -44,6 +44,7 @@ public class SceneSession : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (sceneKey == scene.buildIndex) InitSceneSession();
+        else Destroy(gameObject);
     }
 
     // init scene
@@ -64,11 +65,5 @@ public class SceneSession : MonoBehaviour
             player.GetComponent<PlayerController>().ResetPlayerUI();
         }
 
-    }
-
-    // reset scene persist
-    public void ResetSceneSession()
-    {
-        Destroy(gameObject);
     }
 }
