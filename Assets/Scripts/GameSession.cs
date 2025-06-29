@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class GameSession : MonoBehaviour
 {
+    [Header("Initial state")]
     [SerializeField] public int playerLives = 3;
     [SerializeField] public int playerCoins = 0;
-    [SerializeField] float levelLoadDelay = 1f;
 
-    TextMeshProUGUI playerLivesTextbox;
-    Slider playerLifeSlider;
-    TextMeshProUGUI playerCoinsTextbox;
+    [Header("State containers")]
+    [SerializeField] TextMeshProUGUI playerLivesTextbox;
+    [SerializeField] Slider playerLifeSlider;
+    [SerializeField] TextMeshProUGUI playerCoinsTextbox;
+
+    [Header("Level delay")]
+    [SerializeField] float levelLoadDelay = 1f;
 
     bool isDead = false;
     bool isWinning = false;
@@ -23,11 +27,6 @@ public class GameSession : MonoBehaviour
         int numGameSession = FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length;
         if (numGameSession > 1) Destroy(gameObject);
         else DontDestroyOnLoad(gameObject);
-
-        // player status
-        playerLivesTextbox = (GameObject.FindWithTag("LivesTextbox")).GetComponent<TextMeshProUGUI>();
-        playerLifeSlider = (GameObject.FindWithTag("LifeSlider")).GetComponent<Slider>();
-        playerCoinsTextbox = (GameObject.FindWithTag("CoinsTextbox")).GetComponent<TextMeshProUGUI>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

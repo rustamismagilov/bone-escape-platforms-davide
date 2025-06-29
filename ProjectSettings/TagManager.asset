@@ -4,13 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - LivesTextbox
-  - CoinsTextbox
   - Enemy
-  - LifeSlider
   - LifePickup
   - LivePickup
   - CoinPickup
+  - StatusBar
   layers:
   - Default
   - TransparentFX

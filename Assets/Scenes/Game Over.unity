@@ -4081,7 +4081,7 @@ GameObject:
   - component: {fileID: 939811311}
   m_Layer: 0
   m_Name: CoinsTextbox
-  m_TagString: CoinsTextbox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5298,6 +5298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b902cdeb1aad34296a3fa55dd904a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLivesTextbox: {fileID: 2139246645}
+  playerCoinsTextbox: {fileID: 939811311}
 --- !u!1 &2139246643
 GameObject:
   m_ObjectHideFlags: 0
@@ -5311,7 +5313,7 @@ GameObject:
   - component: {fileID: 2139246645}
   m_Layer: 0
   m_Name: LivesTextbox
-  m_TagString: LivesTextbox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

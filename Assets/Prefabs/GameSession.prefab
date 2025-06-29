@@ -49,6 +49,9 @@ MonoBehaviour:
   playerLives: 3
   playerCoins: 0
   levelLoadDelay: 1
+  playerLivesTextbox: {fileID: 5067050297383168967}
+  playerLifeSlider: {fileID: 4844895462589513694}
+  playerCoinsTextbox: {fileID: 4960849143580044246}
 --- !u!1 &1320460129846825297
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +290,7 @@ GameObject:
   - component: {fileID: 4960849143580044246}
   m_Layer: 0
   m_Name: CoinsTextbox
-  m_TagString: CoinsTextbox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -487,7 +490,7 @@ GameObject:
   - component: {fileID: 985628027219889457}
   m_Layer: 0
   m_Name: LifeSlider
-  m_TagString: LifeSlider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -597,7 +600,7 @@ GameObject:
   - component: {fileID: 5067050297383168967}
   m_Layer: 0
   m_Name: LivesTextbox
-  m_TagString: LivesTextbox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -910,7 +913,7 @@ GameObject:
   - component: {fileID: 2763387457012425828}
   m_Layer: 5
   m_Name: ControlCanvas
-  m_TagString: Untagged
+  m_TagString: StatusBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
