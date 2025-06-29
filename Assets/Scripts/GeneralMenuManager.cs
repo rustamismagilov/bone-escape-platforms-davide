@@ -27,13 +27,11 @@ public class GeneralMenuManager : MonoBehaviour
     // OnRestartButtonClick
     public void OnRestartLevelButtonClick()
     {
-        menuHandler.ResetMenu();
         FindFirstObjectByType<GameSession>().ResetLevel();
     }
     // OnQuitButtonClick
     public void OnQuitButtonClick()
     {
-        menuHandler.ResetMenu();
         FindFirstObjectByType<GameSession>().QuitGame();
     }
 
