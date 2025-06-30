@@ -47,18 +47,10 @@ public class SlimeController : MonoBehaviour
     void Update()
     {
         CheckTouchGround();
-        
-        if (isAlive)
-        {
-            CheckMove();
-            CheckFlipSprite();
-            CheckHealth();
-            CheckDead();
-        }
-        else
-        {
-            CheckBlockAfterDead();
-        }
+        CheckMove();
+        CheckFlipSprite();
+        CheckHealth();
+        CheckDead();
 
     }
 
@@ -127,7 +119,7 @@ public class SlimeController : MonoBehaviour
     // check if is alive
     void CheckDead()
     {
-        if (healthAmount <= 0)
+        if (healthAmount <= 0 && isAlive)
         {
             // set is dead
             isAlive = false;
@@ -135,7 +127,8 @@ public class SlimeController : MonoBehaviour
             if (dieSound != null)
                 audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
-            //Destroy(this.gameObject, dieDelay);
+
+            rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
     }
 
@@ -149,20 +142,5 @@ public class SlimeController : MonoBehaviour
             health += receiver.GetHelth();
         }
         healthAmount = health;
-    }
-
-    void CheckBlockAfterDead()
-    {
-        // Gradually reduce ONLY the X velocity
-        float newX = Mathf.Lerp(rb2d.linearVelocity.x, 0f, Time.deltaTime * decelerationRate);
-        rb2d.linearVelocity = new Vector2(newX, rb2d.linearVelocity.y);
-
-        // Check if velocity is near zero
-        if (rb2d.linearVelocity.magnitude < 0.01f && isTouchingGround)
-        {
-            rb2d.linearVelocity = Vector2.zero;
-            rb2d.angularVelocity = 0;
-            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
     }
 }
