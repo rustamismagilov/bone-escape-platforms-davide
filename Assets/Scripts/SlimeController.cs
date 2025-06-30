@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class SlimeController : MonoBehaviour
 {
@@ -20,6 +19,7 @@ public class SlimeController : MonoBehaviour
     [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
     [SerializeField] float dieDelay = 4f;
     [SerializeField] AudioClip dieSound;
+    [SerializeField] float decelerationRate = 2f;
 
     AudioSource audioSource;
     Vector2 moveInput;
@@ -46,13 +46,20 @@ public class SlimeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive) return;
-
-        CheckMove();
-        CheckFlipSprite();
         CheckTouchGround();
-        CheckHealth();
-        CheckDead();
+        
+        if (isAlive)
+        {
+            CheckMove();
+            CheckFlipSprite();
+            CheckHealth();
+            CheckDead();
+        }
+        else
+        {
+            CheckBlockAfterDead();
+        }
+
     }
 
     // start auto move, jump...
@@ -69,7 +76,8 @@ public class SlimeController : MonoBehaviour
         if (!autoMove)
         {
             moveInput = new Vector2(0, rb2d.linearVelocity.y);
-        } else
+        }
+        else
         {
             int randomX = Random.Range(-1, 2);
             moveInput = new Vector2(randomX, rb2d.linearVelocity.y);
@@ -97,7 +105,7 @@ public class SlimeController : MonoBehaviour
         rb2d.linearVelocity = velocity;
 
         hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon; // movement > 0 // never use 0 because, depending of the precision of unity and joystick and whatever, we have to set a dead zone, for this use Epsilon (is very near to 0) 
-        if (hasHorizontalSpeed && moveSound != null && !audioSource.isPlaying) 
+        if (hasHorizontalSpeed && moveSound != null && !audioSource.isPlaying)
             audioSource.PlayOneShot(moveSound);
     }
 
@@ -127,7 +135,7 @@ public class SlimeController : MonoBehaviour
             if (dieSound != null)
                 audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
-            Destroy(this.gameObject, dieDelay);
+            //Destroy(this.gameObject, dieDelay);
         }
     }
 
@@ -141,5 +149,20 @@ public class SlimeController : MonoBehaviour
             health += receiver.GetHelth();
         }
         healthAmount = health;
+    }
+
+    void CheckBlockAfterDead()
+    {
+        // Gradually reduce ONLY the X velocity
+        float newX = Mathf.Lerp(rb2d.linearVelocity.x, 0f, Time.deltaTime * decelerationRate);
+        rb2d.linearVelocity = new Vector2(newX, rb2d.linearVelocity.y);
+
+        // Check if velocity is near zero
+        if (rb2d.linearVelocity.magnitude < 0.01f && isTouchingGround)
+        {
+            rb2d.linearVelocity = Vector2.zero;
+            rb2d.angularVelocity = 0;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
     }
 }
