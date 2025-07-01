@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2469749571964796718}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.013390541, y: -0.13836002, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67,7 +67,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.017735958, y: -0.36192364}
+  m_Offset: {x: -0.03, y: -0.47}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -77,7 +77,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8262243, y: 0.21314347}
+  m_Size: {x: 0.81, y: 0.24}
   m_EdgeRadius: 0
 --- !u!114 &7328247319850778041
 MonoBehaviour:
@@ -159,7 +159,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.036427498, y: -0.44980335}
+  m_Offset: {x: -0.03, y: -0.44}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -169,7 +169,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.79102325, y: 0.26627636}
+  m_Size: {x: 0.75, y: 0.25}
   m_EdgeRadius: 0
 --- !u!1 &4293021817585455870
 GameObject:
@@ -183,9 +183,10 @@ GameObject:
   - component: {fileID: 7799765785113773043}
   - component: {fileID: 4373751185086123706}
   - component: {fileID: 6111558882762004978}
+  - component: {fileID: 8967135259521967120}
   - component: {fileID: 7126995365004186926}
   - component: {fileID: 8564057387982432971}
-  - component: {fileID: 8967135259521967120}
+  - component: {fileID: 2533568121999561058}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -254,7 +255,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622930591
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_Sprite: {fileID: 5410854522603319429, guid: 1ce4aeb0c35934647b0e1b793e9a1e2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -318,55 +319,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!50 &7126995365004186926
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4293021817585455870}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 50
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 2
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!114 &8564057387982432971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4293021817585455870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99cb45aa40e17124fb2ed9b6e731ec32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  sprintSpeed: 10
-  moveSound: {fileID: 0}
-  sprintSound: {fileID: 8300000, guid: 766c39429b088334b8f9b54037a46a15, type: 3}
-  jumpSpeed: 11
-  jumpEffectDuration: 0.5
-  touchingGroundCollider: {fileID: 8988662314807757320}
-  jumpSound: {fileID: 8300000, guid: 8ab16ad7321682e49a5e99c419fec869, type: 3}
-  deathKick: {x: 10, y: 10}
-  dieSound: {fileID: 8300000, guid: 486d43c40b18f5148b106428ca4301dc, type: 3}
 --- !u!82 &8967135259521967120
 AudioSource:
   m_ObjectHideFlags: 0
@@ -464,6 +416,67 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!50 &7126995365004186926
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293021817585455870}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 50
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 2
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &8564057387982432971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293021817585455870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99cb45aa40e17124fb2ed9b6e731ec32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  sprintSpeed: 10
+  moveSound: {fileID: 0}
+  sprintSound: {fileID: 8300000, guid: 766c39429b088334b8f9b54037a46a15, type: 3}
+  jumpSpeed: 11
+  jumpEffectDuration: 0.5
+  jumpSound: {fileID: 8300000, guid: 8ab16ad7321682e49a5e99c419fec869, type: 3}
+  deathKick: {x: 10, y: 10}
+  dieSound: {fileID: 8300000, guid: 486d43c40b18f5148b106428ca4301dc, type: 3}
+--- !u!114 &2533568121999561058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293021817585455870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b607d3ef229be848829d46c2fd42d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchingGroundCollider: {fileID: 8988662314807757320}
 --- !u!1 &7742342091316893020
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +544,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.019845009, y: -0.030611038}
+  m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.9208298, y: 0.9208298}
   m_Direction: 0
 --- !u!114 &4704886467877598683
@@ -549,4 +562,4 @@ MonoBehaviour:
   totalHealth: 100
   hitDuration: 0.5
   hitKick: {x: 0, y: 10}
-  hitSound: {fileID: 8300000, guid: 267b3fcd1804a6c4a95efa6f908fc123, type: 3}
+  hitSound: {fileID: 8300000, guid: b5e074d2756dbd4459ef5b8a077da480, type: 3}

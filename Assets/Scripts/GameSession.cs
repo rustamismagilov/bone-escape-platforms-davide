@@ -17,7 +17,7 @@ public class GameSession : MonoBehaviour
     [Header("Level delay")]
     [SerializeField] float levelLoadDelay = 1f;
 
-    bool isDead = false;
+    //bool isDead = false;
     bool isWinning = false;
 
     // Awake is called once before the Start
@@ -63,7 +63,7 @@ public class GameSession : MonoBehaviour
         }
         else
         {
-            isDead = true;
+            //isDead = true;
             Invoke(nameof(GameOver), levelLoadDelay);
         }
     }

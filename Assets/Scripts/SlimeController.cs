@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyController))]
 public class SlimeController : MonoBehaviour
 {
     [Header("Move")]
@@ -12,31 +13,32 @@ public class SlimeController : MonoBehaviour
     [SerializeField] bool autoJump = true;
     [SerializeField] float jumpFrequency = 2f;
     [SerializeField] float jumpSpeed = 5f;
-    [SerializeField] Collider2D touchingGroundCollider;
     [SerializeField] AudioClip jumpSound;
 
     [Header("Die")]
     [SerializeField] Vector2 deathKick = new Vector2(0, 10f);
-    [SerializeField] float dieDelay = 4f;
     [SerializeField] AudioClip dieSound;
-    [SerializeField] float decelerationRate = 2f;
+    [SerializeField] float afterDeadDecelerationRate = 2f;
 
+    EnemyController enemyController;
     AudioSource audioSource;
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
+    TouchingGroundHandler touchingGroundHandler;
 
-    int healthAmount;
     bool hasHorizontalSpeed = false;
-    bool isTouchingGround = false;
-    bool isAlive = true;
+    bool isBlocked = false;
+    bool isDeadProcessed = false;
 
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
+        enemyController = GetComponent<EnemyController>();
         audioSource = GetComponent<AudioSource>();
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        touchingGroundHandler = GetComponent<TouchingGroundHandler>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,18 +48,15 @@ public class SlimeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckTouchGround();
-        
-        if (isAlive)
+        if (enemyController.isAlive)
         {
             CheckMove();
             CheckFlipSprite();
-            CheckHealth();
-            CheckDead();
         }
         else
         {
             CheckBlockAfterDead();
+            ProcessDead();
         }
 
     }
@@ -71,7 +70,7 @@ public class SlimeController : MonoBehaviour
     // on move
     void OnMove()
     {
-        if (!isAlive) return;
+        if (!enemyController.isAlive) return;
 
         if (!autoMove)
         {
@@ -86,7 +85,7 @@ public class SlimeController : MonoBehaviour
     // on jump
     void OnJump()
     {
-        if (!isAlive || !autoJump || !isTouchingGround) return;
+        if (!enemyController.isAlive || !autoJump || !touchingGroundHandler.isTouchingGround) return;
 
         bool randomValue = Random.Range(0, 2) == 1 ? true : false;
         if (randomValue)
@@ -118,51 +117,37 @@ public class SlimeController : MonoBehaviour
         }
     }
 
-    // check if is touching the ground
-    void CheckTouchGround()
+    // block the object smoothly after dead
+    void CheckBlockAfterDead()
     {
-        isTouchingGround = touchingGroundCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        if (!isBlocked)
+        {
+            // Gradually reduce ONLY the X velocity
+            float newX = Mathf.Lerp(rb2d.linearVelocity.x, 0f, Time.deltaTime * afterDeadDecelerationRate);
+            rb2d.linearVelocity = new Vector2(newX, rb2d.linearVelocity.y);
+
+            // Check if velocity is near zero
+            if (rb2d.linearVelocity.magnitude < 0.01f && touchingGroundHandler.isTouchingGround)
+            {
+                rb2d.linearVelocity = Vector2.zero;
+                rb2d.angularVelocity = 0;
+                rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+                isBlocked = true;
+            }
+        }
     }
 
-    // check if is alive
-    void CheckDead()
+    // process dead only once
+    void ProcessDead()
     {
-        if (healthAmount <= 0)
+        if (!enemyController.isAlive && !isDeadProcessed)
         {
-            // set is dead
-            isAlive = false;
             animator.SetTrigger("die");
             if (dieSound != null)
                 audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = deathKick;
+            isDeadProcessed = true;
             //Destroy(this.gameObject, dieDelay);
-        }
-    }
-
-    // take the sum of health of all DamageReceiver inside di game object
-    void CheckHealth()
-    {
-        int health = 0;
-        DamageReceiver[] receivers = GetComponentsInChildren<DamageReceiver>();
-        foreach (DamageReceiver receiver in receivers)
-        {
-            health += receiver.GetHelth();
-        }
-        healthAmount = health;
-    }
-
-    void CheckBlockAfterDead()
-    {
-        // Gradually reduce ONLY the X velocity
-        float newX = Mathf.Lerp(rb2d.linearVelocity.x, 0f, Time.deltaTime * decelerationRate);
-        rb2d.linearVelocity = new Vector2(newX, rb2d.linearVelocity.y);
-
-        // Check if velocity is near zero
-        if (rb2d.linearVelocity.magnitude < 0.01f && isTouchingGround)
-        {
-            rb2d.linearVelocity = Vector2.zero;
-            rb2d.angularVelocity = 0;
-            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
 }

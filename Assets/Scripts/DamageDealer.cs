@@ -15,11 +15,11 @@ public class DamageDealer : MonoBehaviour
         audioSource = GetComponentInParent<AudioSource>();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D collider)
     {
         //Debug.Log("Damage damageDealer, this is: " + this.gameObject.name + ", and collide with: " + collider.gameObject.name);
 
-        DamageReceiver damageReceiver = other.GetComponent<DamageReceiver>();
+        DamageReceiver damageReceiver = collider.GetComponent<DamageReceiver>();
         if (damageReceiver != null)
         {
             if (audioSource != null && damageSound != null) audioSource.PlayOneShot(damageSound);

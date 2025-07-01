@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 393197432925074997}
   - component: {fileID: 7609605234585145732}
   - component: {fileID: 1902655674080015270}
-  - component: {fileID: 8175533304451508685}
+  - component: {fileID: 3269009041300039732}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8349614439638361629}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.5, y: -5.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
---- !u!114 &8175533304451508685
+--- !u!114 &3269009041300039732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float jumpEffectDuration = 1f;
-    [SerializeField] Collider2D touchingGroundCollider;
     [SerializeField] AudioClip jumpSound;
 
     [Header("Die")]
@@ -24,12 +23,12 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Rigidbody2D rb2d;
     DamageReceiver damageReceiver;
+    TouchingGroundHandler touchingGroundHandler;
 
     int totalHealthAmount;
     int healthAmount;
     float currentSpeed;
     bool hasHorizontalSpeed = false;
-    bool isTouchingGround = false;
     bool isAlive = true;
 
     // Awake is called when the script instance is being loaded
@@ -39,6 +38,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         damageReceiver = GetComponentInChildren<DamageReceiver>();
+        touchingGroundHandler = GetComponent<TouchingGroundHandler>();
 
         currentSpeed = speed;
     }
@@ -53,7 +53,6 @@ public class PlayerController : MonoBehaviour
 
         CheckMove();
         CheckFlipSprite();
-        CheckTouchGround();
         CheckHealth();
         CheckDead();
     }
@@ -71,7 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isAlive) return;
 
-        if (value.isPressed && isTouchingGround)
+        if (value.isPressed && touchingGroundHandler.isTouchingGround)
         {
             rb2d.linearVelocity += new Vector2(rb2d.linearVelocity.x, jumpSpeed);
             animator.SetBool("isJumping", true);
@@ -164,12 +163,6 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector2(Mathf.Sign(rb2d.linearVelocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);  // I change the sign of localScale.X and keep the same localScale.Y
         }
-    }
-
-    // check if is touching the ground
-    void CheckTouchGround()
-    {
-        isTouchingGround = touchingGroundCollider.IsTouchingLayers(LayerMask.GetMask("Ground", "Enemy"));
     }
 
     void JumpEffectEnd()

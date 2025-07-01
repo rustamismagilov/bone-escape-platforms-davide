@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyController))]
 public class MinotaurController : MonoBehaviour
 {
     [Header("Move")]
@@ -7,6 +9,7 @@ public class MinotaurController : MonoBehaviour
     [SerializeField] float moveFrequency = 2f;
     [SerializeField] float speed = 10f;
     [SerializeField] AudioClip moveSound;
+    [SerializeField] bool followPlayer;
 
     [Header("Attack")]
     [SerializeField] bool autoAttack = true;
@@ -14,21 +17,23 @@ public class MinotaurController : MonoBehaviour
     [SerializeField] AudioClip attackSound;
 
     [Header("Die")]
-    [SerializeField] float dieDelay = 4f;
     [SerializeField] AudioClip dieSound;
+    [SerializeField] float afterDeadBlock = 1f;
 
+    EnemyController enemyController;
     AudioSource audioSource;
     Vector2 moveInput;
     Rigidbody2D rb2d;
     Animator animator;
 
-    int healthAmount;
     bool hasHorizontalSpeed = false;
-    bool isAlive = true;
+    bool isBlocked = false;
+    bool isDeadProcessed = false;
 
     // Awake is called when the script instance is being loaded
     private void Awake()
     {
+        enemyController = GetComponent<EnemyController>();
         audioSource = GetComponent<AudioSource>();
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -41,12 +46,15 @@ public class MinotaurController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive) return;
-
-        CheckMove();
-        CheckFlipSprite();
-        CheckHealth();
-        CheckDead();
+        if (enemyController.isAlive)
+        {
+            CheckMove();
+            CheckFlipSprite();
+        }
+        else
+        {
+            ProcessDead();
+        }
     }
 
     // start auto move, jump...
@@ -59,7 +67,7 @@ public class MinotaurController : MonoBehaviour
     // on move
     void OnMove()
     {
-        if (!isAlive) return;
+        if (!enemyController.isAlive) return;
 
         if (!autoMove)
         {
@@ -67,7 +75,20 @@ public class MinotaurController : MonoBehaviour
         }
         else
         {
-            int randomX = Random.Range(-1, 2);
+            List<int> possibleValues = new List<int> { -1, 0, 1 };
+
+            // add possibility to follow the player
+            if (followPlayer)
+            {
+                GameObject player = GameObject.FindWithTag("Player");
+                float delta = transform.position.x - player.transform.position.x;
+                if (delta > 1f) possibleValues.Add(-1);
+                else if (delta < -1f) possibleValues.Add(1);
+            }
+
+            // set move input
+            int randomIndex = Random.Range(0, possibleValues.Count);
+            int randomX = possibleValues[randomIndex];
             moveInput = new Vector2(randomX, rb2d.linearVelocity.y);
         }
     }
@@ -75,18 +96,23 @@ public class MinotaurController : MonoBehaviour
     // on attack
     void OnAttack()
     {
-        if (!isAlive) return;
+        if (!enemyController.isAlive) return;
 
         if (!autoAttack)
         {
-            animator.SetBool("isAttacking", false);
+            animator.ResetTrigger("attack1");
+            animator.ResetTrigger("attack2");
         }
         else
         {
             bool randomValue = Random.Range(0, 2) == 1 ? true : false;
-            animator.SetBool("isAttacking", randomValue);
-            if (randomValue && attackSound != null)
-                audioSource.PlayOneShot(attackSound);
+            string randomAttack = Random.Range(0, 2) == 1 ? "attack1" : "attack2";
+            if (randomValue)
+            {
+                animator.SetTrigger(randomAttack);
+                if (attackSound != null)
+                    audioSource.PlayOneShot(attackSound);
+            }
         }
     }
 
@@ -97,7 +123,7 @@ public class MinotaurController : MonoBehaviour
         rb2d.linearVelocity = velocity;
 
         hasHorizontalSpeed = Mathf.Abs(rb2d.linearVelocity.x) > Mathf.Epsilon;
-        animator.SetBool("isWalking", hasHorizontalSpeed);
+        animator.SetBool("isMoving", hasHorizontalSpeed);
         if (hasHorizontalSpeed && moveSound != null && !audioSource.isPlaying)
             audioSource.PlayOneShot(moveSound);
     }
@@ -111,30 +137,30 @@ public class MinotaurController : MonoBehaviour
         }
     }
 
-    // check if is alive
-    void CheckDead()
+    // block the object smoothly after dead
+    void CheckBlockAfterDead()
     {
-        if (healthAmount <= 0)
+        if (!isBlocked)
         {
-            // set is dead
-            isAlive = false;
+            rb2d.linearVelocity = Vector2.zero;
+            rb2d.angularVelocity = 0;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            isBlocked = true;
+        }
+    }
+
+    // process dead only once
+    void ProcessDead()
+    {
+        if (!enemyController.isAlive && !isDeadProcessed)
+        {
             animator.SetTrigger("die");
             if (dieSound != null)
                 audioSource.PlayOneShot(dieSound);
             rb2d.linearVelocity = new Vector2(0, 0);
-            Destroy(this.gameObject, dieDelay);
+            Invoke(nameof(CheckBlockAfterDead), afterDeadBlock);
+            isDeadProcessed = true;
+            //Destroy(this.gameObject, dieDelay);
         }
-    }
-
-    // take the sum of health of all DamageReceiver inside di game object
-    void CheckHealth()
-    {
-        int health = 0;
-        DamageReceiver[] receivers = GetComponentsInChildren<DamageReceiver>();
-        foreach (DamageReceiver receiver in receivers)
-        {
-            health += receiver.GetHelth();
-        }
-        healthAmount = health;
     }
 }

@@ -48,10 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLives: 3
   playerCoins: 0
-  levelLoadDelay: 1
   playerLivesTextbox: {fileID: 5067050297383168967}
   playerLifeSlider: {fileID: 4844895462589513694}
   playerCoinsTextbox: {fileID: 4960849143580044246}
+  levelLoadDelay: 1
 --- !u!1 &1320460129846825297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,11 +1012,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3509019755569603336, guid: 156d896aae5eba544ac17ae063a45a2a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3509019755569603336, guid: 156d896aae5eba544ac17ae063a45a2a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3509019755569603336, guid: 156d896aae5eba544ac17ae063a45a2a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1054,10 +1054,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4704886467877598683, guid: 156d896aae5eba544ac17ae063a45a2a, type: 3}
-      propertyPath: hitSound
-      value: 
-      objectReference: {fileID: 8300000, guid: b5e074d2756dbd4459ef5b8a077da480, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

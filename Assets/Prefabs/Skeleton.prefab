@@ -67,8 +67,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.1891253, y: -0.22185826}
-  m_Size: {x: 0.7473178, y: 1.6328406}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.7473178, y: 1.7}
   m_Direction: 0
 --- !u!114 &3009640956728861
 MonoBehaviour:
@@ -153,7 +153,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.22689629, y: -0.22713518}
+  m_Offset: {x: 0.41, y: -0.08}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -191,8 +191,10 @@ GameObject:
   - component: {fileID: 1591723938798359672}
   - component: {fileID: 9173268010186314500}
   - component: {fileID: 1259755416282236935}
-  - component: {fileID: 5447561778119981399}
   - component: {fileID: 56543857505128540}
+  - component: {fileID: 2612664587741284367}
+  - component: {fileID: 5447561778119981399}
+  - component: {fileID: 8499795683724003730}
   m_Layer: 9
   m_Name: Skeleton
   m_TagString: Enemy
@@ -260,7 +262,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622930591
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 45966500872709769, guid: c20288abafd136c41ba4a90f443af23e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -321,33 +323,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &5447561778119981399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4706709260245231966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05798f2821de1984bbae7bdc87d73af3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoMove: 1
-  moveFrequency: 2
-  speed: 3
-  moveSound: {fileID: 8300000, guid: 8053b43c3859a5742af81530292d217e, type: 3}
-  autoJump: 1
-  jumpFrequency: 2
-  jumpSpeed: 10
-  touchingGroundCollider: {fileID: 5948783108659461010}
-  jumpSound: {fileID: 0}
-  autoAttack: 1
-  attackFrequency: 2
-  attackSound: {fileID: 8300000, guid: dfac20f9b569f104ab5e7d0100ec032b, type: 3}
-  deathKick: {x: 0, y: 0}
-  dieDelay: 4
-  dieSound: {fileID: 8300000, guid: 924848ff453edd14fbbbd088e25f0491, type: 3}
 --- !u!82 &56543857505128540
 AudioSource:
   m_ObjectHideFlags: 0
@@ -445,3 +420,88 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!61 &2612664587741284367
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706709260245231966}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.8408203}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.33, y: 0.41}
+    oldSize: {x: 1.125, y: 2.0625}
+    newSize: {x: 1.25, y: 2.0625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.5712476, y: 0.120135784}
+  m_EdgeRadius: 0
+--- !u!114 &5447561778119981399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706709260245231966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05798f2821de1984bbae7bdc87d73af3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoMove: 1
+  moveFrequency: 2
+  speed: 3
+  moveSound: {fileID: 8300000, guid: 8053b43c3859a5742af81530292d217e, type: 3}
+  autoJump: 1
+  jumpFrequency: 2
+  jumpSpeed: 10
+  jumpSound: {fileID: 0}
+  autoAttack: 1
+  attackFrequency: 2
+  attackSound: {fileID: 8300000, guid: dfac20f9b569f104ab5e7d0100ec032b, type: 3}
+  deathKick: {x: 0, y: 0}
+  dieSound: {fileID: 8300000, guid: 924848ff453edd14fbbbd088e25f0491, type: 3}
+  afterDeadDecelerationRate: 2
+--- !u!114 &8499795683724003730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706709260245231966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b607d3ef229be848829d46c2fd42d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchingGroundCollider: {fileID: 2612664587741284367}

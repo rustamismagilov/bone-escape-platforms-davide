@@ -53,14 +53,14 @@ public class SceneSession : MonoBehaviour
         // get objects
         GameObject player = GameObject.FindWithTag("Player");
         CinemachineCamera cinemachineCamera = FindFirstObjectByType<CinemachineCamera>();
-        Start start = FindFirstObjectByType<Start>();
+        StartHandler startHandler = FindFirstObjectByType<StartHandler>();
 
         if (player)
         {
             // set the camera
             if (cinemachineCamera) cinemachineCamera.Target.TrackingTarget = player.transform;
-            // position to start
-            if (start) player.transform.position = start.transform.position;
+            // position to startHandler
+            if (startHandler) player.transform.position = startHandler.transform.position;
             // reset player
             player.GetComponent<PlayerController>().ResetPlayerUI();
         }
