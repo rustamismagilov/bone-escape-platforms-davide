@@ -1,9 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(EnemyController))]
 public class MinotaurController : MonoBehaviour
 {
+    [Header("Voice")]
+    [SerializeField] AudioClip voiceSound;
+    [SerializeField] float voiceFrequency = 3f;
+
     [Header("Move")]
     [SerializeField] bool autoMove = true;
     [SerializeField] float moveFrequency = 2f;
@@ -60,6 +65,7 @@ public class MinotaurController : MonoBehaviour
     // start auto move, jump...
     void StartAI()
     {
+        InvokeRepeating(nameof(OnVoiceSound), voiceFrequency, voiceFrequency);
         InvokeRepeating(nameof(OnMove), moveFrequency, moveFrequency);
         InvokeRepeating(nameof(OnAttack), attackFrequency, attackFrequency);
     }
@@ -111,8 +117,22 @@ public class MinotaurController : MonoBehaviour
             {
                 animator.SetTrigger(randomAttack);
                 if (attackSound != null)
+                {
+                    audioSource.Stop();
                     audioSource.PlayOneShot(attackSound);
+                }
             }
+        }
+    }
+
+    // on voice sound
+    void OnVoiceSound()
+    {
+        bool randomValue = Random.Range(0, 2) == 1 ? true : false;
+        if (randomValue)
+        {
+            if (voiceSound != null && !audioSource.isPlaying)
+                audioSource.PlayOneShot(voiceSound);
         }
     }
 

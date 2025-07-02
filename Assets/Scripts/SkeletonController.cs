@@ -115,8 +115,10 @@ public class SkeletonController : MonoBehaviour
         {
             bool randomValue = Random.Range(0, 2) == 1 ? true : false;
             animator.SetBool("isAttacking", randomValue);
-            if (randomValue && attackSound != null)
+            if (randomValue && attackSound != null){
+                audioSource.Stop();
                 audioSource.PlayOneShot(attackSound);
+            }
         }
     }
 

@@ -157,7 +157,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -254,15 +254,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc8ed082b1834a48b5216fe8ca06a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  voiceSound: {fileID: 8300000, guid: 9a2381b4971aa154c91636efa333d169, type: 3}
+  voiceFrequency: 3
   autoMove: 1
   moveFrequency: 1
   speed: 5
-  moveSound: {fileID: 0}
+  moveSound: {fileID: 8300000, guid: 4b7ff59c672594f498d061e874221657, type: 3}
   followPlayer: 0
   autoAttack: 1
   attackFrequency: 2
-  attackSound: {fileID: 0}
-  dieSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 59f5349f42c596d4bbf4a7588f273f26, type: 3}
+  dieSound: {fileID: 8300000, guid: d3c6d118e220cdd4ab820f6b64f4dd0f, type: 3}
   afterDeadBlock: 1
 --- !u!114 &3569186354809174705
 MonoBehaviour:
@@ -523,7 +525,7 @@ MonoBehaviour:
   totalHealth: 200
   hitDuration: 0.5
   hitKick: {x: 0, y: 0}
-  hitSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 8bb97c437810b904982715e564db90b7, type: 3}
 --- !u!1 &8811111398082027364
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,4 +620,4 @@ MonoBehaviour:
   totalHealth: 300
   hitDuration: 1
   hitKick: {x: 0, y: 0}
-  hitSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 8bb97c437810b904982715e564db90b7, type: 3}
