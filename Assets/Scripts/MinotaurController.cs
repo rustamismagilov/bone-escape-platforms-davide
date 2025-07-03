@@ -128,6 +128,8 @@ public class MinotaurController : MonoBehaviour
     // on voice sound
     void OnVoiceSound()
     {
+        if (!enemyController.isAlive) return;
+
         bool randomValue = Random.Range(0, 2) == 1 ? true : false;
         if (randomValue)
         {

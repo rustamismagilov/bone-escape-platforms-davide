@@ -10,6 +10,7 @@ public class GameOverManager : MonoBehaviour
     [Header("Score containers")]
     [SerializeField] TextMeshProUGUI playerLivesTextbox;
     [SerializeField] TextMeshProUGUI playerCoinsTextbox;
+    [SerializeField] TextMeshProUGUI levelReachedTextbox;
 
     // Awake is called once before the Start
     void Awake()
@@ -51,6 +52,7 @@ public class GameOverManager : MonoBehaviour
             // set score
             playerLivesTextbox.text = gameSession.playerLives.ToString();
             playerCoinsTextbox.text = gameSession.playerCoins.ToString();
+            levelReachedTextbox.text = gameSession.ReachedLEvel.ToString();
             // set player
             player.transform.position = new Vector2(0, 0);
         }

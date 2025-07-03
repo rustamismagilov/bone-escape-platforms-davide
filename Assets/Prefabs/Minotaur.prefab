@@ -258,7 +258,7 @@ MonoBehaviour:
   voiceFrequency: 3
   autoMove: 1
   moveFrequency: 1
-  speed: 5
+  speed: 3
   moveSound: {fileID: 8300000, guid: 4b7ff59c672594f498d061e874221657, type: 3}
   followPlayer: 0
   autoAttack: 1

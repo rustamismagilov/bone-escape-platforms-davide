@@ -17,8 +17,9 @@ public class GameSession : MonoBehaviour
     [Header("Level delay")]
     [SerializeField] float levelLoadDelay = 1f;
 
-    //bool isDead = false;
     bool isWinning = false;
+    int reachedLEvel;
+    public int ReachedLEvel { get { return reachedLEvel; } }
 
     // Awake is called once before the Start
     void Awake()
@@ -32,12 +33,28 @@ public class GameSession : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Subscribe to sceneLoaded event
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        UpdateLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateUI();
+    }
+
+    // OnDestroy is called once when the component is destroid
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Called automatically when scene has finished loading next scene
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateLevel();
     }
 
     // update UI
@@ -50,6 +67,18 @@ public class GameSession : MonoBehaviour
             playerLifeSlider.value = FindFirstObjectByType<PlayerController>().GetHealthAmount();
         }
         if (playerCoinsTextbox) playerCoinsTextbox.text = playerCoins.ToString();
+    }
+
+    // update level
+    void UpdateLevel()
+    {
+        // set current level
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName.StartsWith("Level"))
+        {
+            int newLevel = int.Parse(sceneName.Replace("Level", "").Trim());
+            reachedLEvel = newLevel;
+        }
     }
 
     // check if the player is dead
@@ -80,14 +109,12 @@ public class GameSession : MonoBehaviour
     void RepeatLevel()
     {
         FindFirstObjectByType<PlayerController>().ResetLive();
-        //FindFirstObjectByType<SceneSession>().InitSceneSession();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
     // load next level
     void LoadNextLevel()
     {
-        //FindFirstObjectByType<SceneSession>().ResetSceneSession();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
         SceneManager.LoadScene(nextSceneIndex);
@@ -96,7 +123,6 @@ public class GameSession : MonoBehaviour
     // reset level with same condition
     public void ResetLevel()
     {
-        //FindFirstObjectByType<SceneSession>().InitSceneSession();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
@@ -105,27 +131,18 @@ public class GameSession : MonoBehaviour
     public void RestartGame()
     {
         Destroy(gameObject);
-
-        SceneSession sceneSession = FindFirstObjectByType<SceneSession>();
-        if (sceneSession != null) Destroy(sceneSession.gameObject);
-
         SceneManager.LoadScene("Level 1");
     }
     // quit game to home
     public void QuitGame()
     {
         Destroy(gameObject);
-
-        SceneSession sceneSession = FindFirstObjectByType<SceneSession>();
-        if (sceneSession != null) Destroy(sceneSession.gameObject);
-
         SceneManager.LoadScene("Home");
     }
 
     // when the game finish
     void GameOver()
     {
-        //FindFirstObjectByType<SceneSession>().ResetSceneSession();
         SceneManager.LoadScene("Game Over");
     }
 

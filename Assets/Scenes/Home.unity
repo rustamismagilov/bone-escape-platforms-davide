@@ -639,7 +639,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bone Escape Platform
+  m_text: Bone Escape Platformer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8945537f95baeef4d8f95db925814c18, type: 2}
   m_sharedMaterial: {fileID: 1178953941934907103, guid: 8945537f95baeef4d8f95db925814c18, type: 2}
