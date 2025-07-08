@@ -34,7 +34,7 @@ public class SceneSession : MonoBehaviour
         // first init
         InitSceneSession();
     }
-    // OnDestroy is called once when the component is destroid
+    // OnDestroy is called once when the component is destroyed
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;

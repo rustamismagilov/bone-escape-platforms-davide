@@ -18,8 +18,8 @@ public class GameSession : MonoBehaviour
     [SerializeField] float levelLoadDelay = 1f;
 
     bool isWinning = false;
-    int reachedLEvel;
-    public int ReachedLEvel { get { return reachedLEvel; } }
+    int reachedLevel;
+    public int ReachedLevel { get { return reachedLevel; } }
 
     // Awake is called once before the Start
     void Awake()
@@ -45,7 +45,7 @@ public class GameSession : MonoBehaviour
         UpdateUI();
     }
 
-    // OnDestroy is called once when the component is destroid
+    // OnDestroy is called once when the component is destroyed
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -77,7 +77,7 @@ public class GameSession : MonoBehaviour
         if (sceneName.StartsWith("Level"))
         {
             int newLevel = int.Parse(sceneName.Replace("Level", "").Trim());
-            reachedLEvel = newLevel;
+            reachedLevel = newLevel;
         }
     }
 

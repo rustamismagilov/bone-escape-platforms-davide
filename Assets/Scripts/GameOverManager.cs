@@ -52,7 +52,7 @@ public class GameOverManager : MonoBehaviour
             // set score
             playerLivesTextbox.text = gameSession.playerLives.ToString();
             playerCoinsTextbox.text = gameSession.playerCoins.ToString();
-            levelReachedTextbox.text = gameSession.ReachedLEvel.ToString();
+            levelReachedTextbox.text = gameSession.ReachedLevel.ToString();
             // set player
             player.transform.position = new Vector2(0, 0);
         }
