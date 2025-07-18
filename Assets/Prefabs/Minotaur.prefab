@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3813887867226691645}
   - component: {fileID: 5119963639244427326}
   - component: {fileID: 4978323275124608971}
-  - component: {fileID: 6874245064085460932}
   - component: {fileID: 3569186354809174705}
+  - component: {fileID: 6874245064085460932}
   m_Layer: 9
   m_Name: Minotaur
   m_TagString: Enemy
@@ -242,6 +242,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3569186354809174705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436137161131700758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea446371520002941a3999c430dd0940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6874245064085460932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,18 +278,6 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 59f5349f42c596d4bbf4a7588f273f26, type: 3}
   dieSound: {fileID: 8300000, guid: d3c6d118e220cdd4ab820f6b64f4dd0f, type: 3}
   afterDeadBlock: 1
---- !u!114 &3569186354809174705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 436137161131700758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea446371520002941a3999c430dd0940, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &607275654938177295
 GameObject:
   m_ObjectHideFlags: 0
