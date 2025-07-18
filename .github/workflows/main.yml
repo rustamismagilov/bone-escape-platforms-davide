@@ -54,16 +54,3 @@ jobs:
         with:
           name: WebGL
           path: build
-
-  auto-merge-upstream:
-    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'davide-murro'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Auto-merge PR from upstream owner
-        run: |
-          curl -X PUT \
-            -H "Authorization: token ${{ secrets.PAT }}" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/merge \
-            -d '{"merge_method": "merge"}'
-
